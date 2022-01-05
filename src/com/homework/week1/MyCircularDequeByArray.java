@@ -37,12 +37,11 @@ public class MyCircularDequeByArray {
         if (capacity <= 0) {
             throw new RuntimeException("capacity invalid");
         }
-        // 总有一个位置不填
         this.capacity = capacity;
         this.arr = new int[this.capacity];
         this.size = 0;
-        // 初始在index=0的位置上，我们让尾部插入先移动index再赋值，让头部插入先赋值再移动index，就可以保证错开
-        // 这样的话，读取head的值时，当读取headIndex+1处时，刚好满足边界 (即使tail没有插入过，也可以读取到head插入的数据
+        // 初始在index=0的位置上，我们让尾部插入先右移index再赋值(尾部读取, 在index上直接读取)
+        // 让头部插入先赋值再左移index，就可以保证错开(头部读取, 在index+1的位置上读取)
         this.headIndex = 0;
         this.tailIndex = 0;
     }
