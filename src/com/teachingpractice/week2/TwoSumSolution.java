@@ -48,7 +48,7 @@ public class TwoSumSolution {
      * @param target
      * @return
      */
-    private static int[] twoSum(int[] nums, int target) {
+    private static int[] twoSum(final int[] nums, final int target) {
         final int length = nums.length;
         if (length == 2) {
             return new int[]{0, 1};
