@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * 算法实现：子域名访问计数
+ * leetcode-811 链接：https://leetcode-cn.com/problems/subdomain-visit-count/
  * <p>
  * 网站域名 "discuss.leetcode.com" 由多个子域名组成。顶级域名为 "com" ，二级域名为 "leetcode.com" ，最低一级为 "discuss.leetcode.com" 。
  * 当访问域名 "discuss.leetcode.com" 时，同时也会隐式访问其父域名 "leetcode.com" 以及 "com" 。
@@ -28,6 +29,8 @@ import java.util.Arrays;
  * cpdomain[i] 会遵循 "repi d1i.d2i.d3i" 或 "repi d1i.d2i" 格式
  * repi 是范围 [1, 10^4] 内的一个整数
  * d1i、d2i 和 d3i 由小写英文字母组成
+ *
+ * 设计思想：split出来，HashMap进行key-value进行统计，无序输出即可，每个输出元素是Join后的结果
  *
  * @since 2022-01-09 08:37:39
  */

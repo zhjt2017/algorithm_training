@@ -23,6 +23,10 @@ package com.homework.week2;
  * nums.length 在 1 到 50,000 范围内。
  * nums[i] 是一个在 0 到 49,999 范围内的整数。
  *
+ * 设计思想：
+ * 1、先取出所有满足最大度的数
+ * 2、不同的数，同一个度，最左边出现与最右边出现的距离，取最短的
+ *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-01-09 08:50:59
  */
