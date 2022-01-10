@@ -1,6 +1,6 @@
 package com.homework.week2;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * 算法实现：子域名访问计数
@@ -29,24 +29,71 @@ import java.util.Arrays;
  * cpdomain[i] 会遵循 "repi d1i.d2i.d3i" 或 "repi d1i.d2i" 格式
  * repi 是范围 [1, 10^4] 内的一个整数
  * d1i、d2i 和 d3i 由小写英文字母组成
- *
+ * <p>
  * 设计思想：split出来，HashMap进行key-value进行统计，无序输出即可，每个输出元素是Join后的结果
  *
  * @since 2022-01-09 08:37:39
  */
 public class SubDomainVisitsSolution {
+
+    private static final char BLANK = ' ';
+    private static final char DOT = '.';
+
     public static void main(String[] args) {
         String[] cpdomains = new String[]{"9001 discuss.leetcode.com"};
         System.out.println("input : " + Arrays.toString(cpdomains));
-        System.out.println("output : " + Arrays.toString(subDomainVisits(cpdomains)));
+        System.out.println("output : " + subDomainVisits(cpdomains));
 
         cpdomains = new String[]{"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"};
         System.out.println("input : " + Arrays.toString(cpdomains));
-        System.out.println("output : " + Arrays.toString(subDomainVisits(cpdomains)));
+        System.out.println("output : " + subDomainVisits(cpdomains));
     }
 
-    private static String[] subDomainVisits(final String[] cpdomains) {
+    private static List<String> subDomainVisits(final String[] cpdomains) {
+        final Map<String, Integer> countMap = new HashMap<>(cpdomains.length);
 
-        return new String[]{};
+        for (final String source : cpdomains) {
+            singleDoStatistics(source, countMap);
+        }
+
+        final List<String> result = new ArrayList<>(countMap.size());
+        final StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
+            sb.append(entry.getValue());
+            sb.append(BLANK);
+            sb.append(entry.getKey());
+            result.add(sb.toString());
+            sb.delete(0, sb.length());
+        }
+        return result;
+    }
+
+    private static void singleDoStatistics(final String cpDomain, final Map<String, Integer> countMap) {
+        final int length = cpDomain.length();
+        int domainStartIndex = 0;
+        // 我们假设给定的数据中是没有不符合格式的，故以下都直接处理，不做判断
+        while (cpDomain.charAt(domainStartIndex) != BLANK) {
+            domainStartIndex++;
+        }
+        final int count = Integer.parseInt(cpDomain.substring(0, domainStartIndex));
+        domainStartIndex++;
+
+        // 标识是否是最后一个点号，如果不是，则其后乃是上一级域名
+        boolean isLast = false;
+        String key;
+        for (int i = length - 1; i > domainStartIndex; i--) {
+            if (cpDomain.charAt(i) != DOT) {
+                continue;
+            }
+            if (isLast) {
+                isLast = true;
+            } else {
+                key = cpDomain.substring(i + 1);
+                countMap.put(key, countMap.getOrDefault(key, 0) + count);
+            }
+        }
+        // 这里是最低一级域名
+        key = cpDomain.substring(domainStartIndex);
+        countMap.put(key, countMap.getOrDefault(key, 0) + count);
     }
 }
