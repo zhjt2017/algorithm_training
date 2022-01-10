@@ -31,6 +31,8 @@ import java.util.*;
  * d1i、d2i 和 d3i 由小写英文字母组成
  * <p>
  * 设计思想：split出来，HashMap进行key-value进行统计，无序输出即可，每个输出元素是Join后的结果
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
  *
  * @since 2022-01-09 08:37:39
  */

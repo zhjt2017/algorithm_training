@@ -12,6 +12,10 @@ import java.util.Arrays;
  * - 输入：nums = [1,2,3], k = 3
  * - 输出：2
  *
+ * 设计思想：
+ * 时间复杂度：O()
+ * 空间复杂度：O()
+ *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-01-09 10:26:40
  */
