@@ -125,6 +125,7 @@ public class FindSubStringSolution {
             }
 
             // 新的那个词如果超过了个数，则left需要去除第一个同样的词
+            // (代码实现是stepWord这个词的个数不变，left在到达第一个stepWord相同词之前的所有词都数量-1，left指针走过该相同词)
             if (standardMap.get(stepWord).equals(subMap.get(stepWord))) {
                 leftWord = s.substring(left, left + oneWordLength);
                 while (!leftWord.equals(stepWord)) {
