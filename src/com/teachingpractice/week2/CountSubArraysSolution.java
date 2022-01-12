@@ -54,6 +54,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
         System.out.println();
 
         nums = new int[]{2, 4, 6};
@@ -63,6 +64,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
         System.out.println();
 
         nums = new int[]{1, 1, 1, 1};
@@ -72,6 +74,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
         System.out.println();
 
         nums = new int[]{1, 1};
@@ -81,6 +84,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
         System.out.println();
 
         nums = new int[]{2, 2, 2, 1, 2, 2, 1, 2, 2, 2};
@@ -90,6 +94,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
         System.out.println();
 
         nums = new int[]{91473, 45388, 24720, 35841, 29648, 77363, 86290, 58032, 53752, 87188, 34428, 85343, 19801, 73201};
@@ -99,6 +104,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
 
         nums = new int[]{45627, 50891, 94884, 11286, 35337, 46414, 62029, 20247, 72789, 89158, 54203, 79628, 25920, 16832, 47469, 80909};
         k = 1;
@@ -107,6 +113,7 @@ public class CountSubArraysSolution {
         System.out.println("count of sub arrays countSubArraysOptimization : " + countSubArraysOptimization(nums, k));
         System.out.println("count of sub arrays countSubArraysOptimizationAgain : " + countSubArraysOptimizationAgain(nums, k));
         System.out.println("count of sub arrays countSubArraysAnother : " + countSubArraysAnother(nums, k));
+        System.out.println("count of sub arrays countSubArraysDoublePointer : " + countSubArraysDoublePointer(nums, k));
     }
 
     /**
@@ -179,6 +186,9 @@ public class CountSubArraysSolution {
     /**
      * 这其实与countSubArraysOptimization本质是一样的，方法没有变，但是优化了一下写法
      * - preSums数组只用到当前遍历的那个元素，故只要使用单个int维护当前遍历的preSum即可，优化了一半空间，并减少一次遍历中的一些步骤的时间
+     * <p>
+     * - 所有方法，从时间复杂度来说，这个最优，思路也最好理解：
+     * - 即维护一个int数组，进行次数的统计，其index为前缀和，当前缀和>=k时，就可以开始累加前缀和为preSum - k的次数到result上
      *
      * @param nums
      * @param k
@@ -208,8 +218,10 @@ public class CountSubArraysSolution {
      * 时间复杂度：O(n)
      * 空间复杂度O(1)
      * <p>
-     * 心得：虽然这是空间复杂度是O(1)，当内存空间不是特别紧缺时，不建议这个方案，
-     * 因为一来比较容易忽略迭代条件，而来计算的变量较多理解起来不方便，三来left指针的路线其实是多走的，所以时间复杂度甚至不如方法1
+     * 心得：
+     * 1、虽然这是空间复杂度是O(1)，当内存空间不是特别紧缺时，不建议这个方案，
+     * 2、因为一来比较容易忽略迭代条件，而来计算的变量较多理解起来不方便，三来left指针的路线其实是多走的，所以时间复杂度甚至不如方法1
+     * 3、如果实在要做，编码前先明确描述出左右指针分别的行走规则、迭代条件，再细节描述下边界情况的条件与处理，就能一气呵成了
      *
      * @param nums
      * @param k
@@ -264,5 +276,64 @@ public class CountSubArraysSolution {
         }
 
         return result;
+    }
+
+    private static int countSubArraysDoublePointer(final int[] nums, final int k) {
+        /*
+        1、双指针的行走规则与迭代条件(包括结束条件)：
+        -- 以包含left、right在内的滑动窗口中有k个奇数作为一个符合题意条件的优美子数组
+        -- 一次迭代中的计算，先计算leftCount，至少一个，每当left走过一个偶数，则多贪一个 (因为right已经到达一个奇数，则left可以没有条件)
+        -- 然后计算rightCount，就不使用变量了，直接将leftCount加到result上，每当right走过一个偶数，则多贪一份leftCount (right到达n，本身迭代计算完成就结束)
+        -- -- 关于上面的right到达n，如果数组中最后一个数是偶数，则在迭代计算中结束，反之为奇数时，其实已经进入下一个包含k个奇数的滑动窗口，则需要增加一份leftCount，然后结束，故结束条件放在计算leftCount之后
+        -- 进入下次迭代计算的条件：right+1走过下一个奇数，left+1走过下一个奇数，则重新满足新的包含k个奇数的滑动窗口，进入到下一轮迭代计算，注意leftCount恢复默认值1
+        2、边界条件与处理 (nums长度为n)
+        -- 起始边界：left=0, right到达第k个奇数的位置 (right每次++, 则while(sum<k)即可实现)
+        -- -- 特例：如果数组中一个奇数也没有，即right=n结束
+        -- 结束边界：right无法到达n，即right=n结束
+         */
+        final int n = nums.length;
+        int result = 0;
+        int left = 0, right = 0;
+        int leftCount = 1;
+        int sum = 0;
+
+        while (sum < k) {
+            sum += (nums[right] & 1);
+            right++;
+            if (right == n) {
+                return result;
+            }
+        }
+
+        while (right <= n) {
+            while (isEven(nums[left])) {
+                leftCount++;
+                left++;
+            }
+
+            // 关于上面的right到达n，如果数组中最后一个数是偶数，则在迭代计算中结束，反之为奇数时，其实已经进入下一个包含k个奇数的滑动窗口，则需要增加一份leftCount，然后结束，故结束条件放在计算leftCount之后
+            result += leftCount;
+            if (right == n) {
+                return result;
+            }
+
+            while (isEven(nums[right])) {
+                result += leftCount;
+                right++;
+                if (right == n) {
+                    return result;
+                }
+            }
+
+            right++;
+            left++;
+            leftCount = 1;
+        }
+
+        return result;
+    }
+
+    private static boolean isEven(final int num) {
+        return (num & 1) == 0;
     }
 }
