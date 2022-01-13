@@ -70,8 +70,7 @@ public class MinExchangeSolution {
             right++;
         }
         while (right < nums.length) {
-            sum -= nums[left];
-            sum += nums[right];
+            sum = sum + nums[right] - nums[left];
             maxStatic = Math.max(maxStatic, sum);
             left++;
             right++;
@@ -99,8 +98,7 @@ public class MinExchangeSolution {
             right++;
         }
         while (right < nums.length) {
-            sum -= nums[left];
-            sum += nums[right];
+            sum = sum + nums[right] - nums[left];
             minExchange = Math.min(minExchange, sum);
             left++;
             right++;

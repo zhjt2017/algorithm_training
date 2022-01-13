@@ -81,18 +81,13 @@ public class SubDomainVisitsSolution {
         domainStartIndex++;
 
         // 标识是否是最后一个点号，如果不是，则其后乃是上一级域名
-        boolean isLast = false;
         String key;
         for (int i = length - 1; i > domainStartIndex; i--) {
             if (cpDomain.charAt(i) != DOT) {
                 continue;
             }
-            if (isLast) {
-                isLast = true;
-            } else {
-                key = cpDomain.substring(i + 1);
-                countMap.put(key, countMap.getOrDefault(key, 0) + count);
-            }
+            key = cpDomain.substring(i + 1);
+            countMap.put(key, countMap.getOrDefault(key, 0) + count);
         }
         // 这里是最低一级域名
         key = cpDomain.substring(domainStartIndex);
