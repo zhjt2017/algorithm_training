@@ -1,6 +1,8 @@
 package com.homework.week2;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 算法实现：元素和为目标值的子矩阵数量
@@ -25,6 +27,10 @@ import java.util.Arrays;
  * -1000 <= matrix[i] <= 1000
  * -10^8 <= target <= 10^8
  *
+ * 分析：
+ * - int范围 (m行, n列, 组成二维数组int[m][n]的矩阵，每个元素范围[-1000,1000], 最多100行, 最多100列, 则最大或最小矩阵元素和仍在int范围内，并且元素和没有单调性)
+ * - 这个题就是“和为K的子数组”扩展到二维数组的实现，并没有更好的优化方法
+ *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-01-09 09:41:25
  */
@@ -47,7 +53,20 @@ public class NumSubMatricesSumTargetSolution {
     }
 
     private static int numSubMatricesSumTarget(final int[][] matrix, final int target) {
-        return 0;
+        final Map<Integer, Integer> hash = new HashMap<>();
+        // 初始边界条件，即保证从左上方原点开始(哪怕只是一个元素的子串)也是成立的
+        hash.put(0, 1);
+
+        int preSum = 0;
+        int resultCount = 0;
+
+        final int columns = matrix[0].length;
+        final int lines = matrix.length;
+
+        int m = 0;
+        int n = 0;
+
+        return resultCount;
     }
 
 }
