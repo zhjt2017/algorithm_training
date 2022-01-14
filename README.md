@@ -1,4 +1,8 @@
 # algorithm-training
+## 欢迎来到算法的世界
+- 从“代码拷贝者”到“思维创造者”
+- 这对于程序员是一个新的里程碑
+- 将算法的世界变成你的大世界中的一部分，并常伴你放光芒
 ## my own trials for algorithm training
 - 按周练习
 - 设计思想

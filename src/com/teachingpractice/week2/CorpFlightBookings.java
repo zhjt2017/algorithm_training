@@ -1,4 +1,4 @@
-package com.homework.week2;
+package com.teachingpractice.week2;
 
 /**
  * 算法实现：航班预订统计
