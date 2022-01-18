@@ -1,13 +1,13 @@
 package com.teachingpractice.week3;
 
-import com.homework.week3.MergeMultiSortedList;
+import com.homework.week3.MergeMultiSortedListSolution;
 
 /**
  * 算法实现：课程表
  * - 相关链接：课程表2
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @see MergeMultiSortedList
+ * @see MergeMultiSortedListSolution
  * <p>
  * - 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1
  * - requisite, requisites, prerequisites

@@ -1,7 +1,7 @@
 package com.teachingpractice.week3;
 
 /**
- * 算法实现：翻转二叉树
+ * 算法实现：树-翻转二叉树
  * <p>
  * - 输入：
  * <p>

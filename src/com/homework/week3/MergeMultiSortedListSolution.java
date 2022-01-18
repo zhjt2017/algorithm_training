@@ -23,7 +23,7 @@ package com.homework.week3;
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-01-16 03:09:09
  */
-public class MergeMultiSortedList {
+public class MergeMultiSortedListSolution {
     public static void main(String[] args) {
         ListNode head1 = new ListNode(1);
         head1.next = new ListNode(4);

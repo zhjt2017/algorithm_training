@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * 算法实现：验证二叉搜索树
+ * 算法实现：树-验证二叉搜索树
  * <p>
  * - 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
  * <p>
@@ -52,16 +52,19 @@ public class ValidateBinarySearchTreeSolution {
         root.right.right = new TreeNode(6);
 
         isValidBST(root);
+        System.out.println("isValidBSTWithoutRecursion : " + isValidBSTWithoutRecursion(root));
 
         root = new TreeNode(2);
         root.left = new TreeNode(1);
         root.right = new TreeNode(3);
 
         isValidBST(root);
+        System.out.println("isValidBSTWithoutRecursion : " + isValidBSTWithoutRecursion(root));
 
         root = new TreeNode(Integer.MAX_VALUE);
 
         isValidBST(root);
+        System.out.println("isValidBSTWithoutRecursion : " + isValidBSTWithoutRecursion(root));
     }
 
     private static boolean isValidBST(final TreeNode root) {

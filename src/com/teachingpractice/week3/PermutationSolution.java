@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 算法实现：全排列I
+ * 算法实现：递归-全排列I
  * - 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
  * <p>
  * - 输入：nums = [1,2,3]
