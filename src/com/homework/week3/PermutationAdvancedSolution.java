@@ -1,6 +1,6 @@
 package com.homework.week3;
 
-import com.teachingpractice.week3.PermutationSolution;
+import com.teachingpractice.week3.recur.PermutationSolution;
 
 import java.util.ArrayList;
 import java.util.Arrays;

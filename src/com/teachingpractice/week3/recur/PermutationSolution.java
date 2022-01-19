@@ -1,4 +1,4 @@
-package com.teachingpractice.week3;
+package com.teachingpractice.week3.recur;
 
 import java.util.ArrayList;
 import java.util.Arrays;

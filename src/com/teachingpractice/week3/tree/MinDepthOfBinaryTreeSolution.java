@@ -1,7 +1,7 @@
-package com.teachingpractice.week3;
+package com.teachingpractice.week3.tree;
 
 /**
- * 算法实现：二叉树的最小深度
+ * 算法实现：树-二叉树的最小深度
  * <p>
  * 给定一个二叉树，找出其最大深度。
  * 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。(叶子节点是指没有子节点的节点)
@@ -49,20 +49,20 @@ package com.teachingpractice.week3;
 public class MinDepthOfBinaryTreeSolution {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
-//        root.left = new TreeNode(9);
-//        root.right = new TreeNode(20);
-//        root.right.left = new TreeNode(15);
-//        root.right.right = new TreeNode(7);
-//        System.out.println("Input binary tree : " + root);
-//        System.out.println("minDepth result : " + minDepth(root));
-//
-//        root = new TreeNode(2);
-//        root.right = new TreeNode(3);
-//        root.right.right = new TreeNode(4);
-//        root.right.right.right = new TreeNode(5);
-//        root.right.right.right.right = new TreeNode(6);
-//        System.out.println("Input binary tree : " + root);
-//        System.out.println("minDepth result : " + minDepth(root));
+        root.left = new TreeNode(9);
+        root.right = new TreeNode(20);
+        root.right.left = new TreeNode(15);
+        root.right.right = new TreeNode(7);
+        System.out.println("Input binary tree : " + root);
+        System.out.println("minDepth result : " + minDepth(root));
+
+        root = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.right.right = new TreeNode(4);
+        root.right.right.right = new TreeNode(5);
+        root.right.right.right.right = new TreeNode(6);
+        System.out.println("Input binary tree : " + root);
+        System.out.println("minDepth result : " + minDepth(root));
 
         root = new TreeNode(1);
         root.left = new TreeNode(2);

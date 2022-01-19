@@ -1,4 +1,4 @@
-package com.teachingpractice.week3;
+package com.teachingpractice.week3.tree;
 
 /**
  * 算法实现：树-翻转二叉树

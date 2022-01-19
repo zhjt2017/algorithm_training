@@ -1,9 +1,9 @@
-package com.speed.week3;
+package com.teachingpractice.week3.divide_and_conquer;
 
 import java.math.BigDecimal;
 
 /**
- * 算法实现：计算x的n次方 (x为double类型)
+ * 算法实现：分治-计算x的n次方 (x为double类型)
  * - 实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，xn ）。
  * - 输入：x = 2.00000, n = 10
  * 输出：1024.00000

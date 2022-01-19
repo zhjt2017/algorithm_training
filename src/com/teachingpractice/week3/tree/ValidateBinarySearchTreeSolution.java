@@ -1,4 +1,4 @@
-package com.teachingpractice.week3;
+package com.teachingpractice.week3.tree;
 
 import java.util.Deque;
 import java.util.LinkedList;
