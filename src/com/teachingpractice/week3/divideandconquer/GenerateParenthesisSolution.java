@@ -1,4 +1,4 @@
-package com.teachingpractice.week3.divide_and_conquer;
+package com.teachingpractice.week3.divideandconquer;
 
 import java.util.HashMap;
 import java.util.LinkedList;
