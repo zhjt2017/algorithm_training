@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * 算法实现：递归-全排列II
+ *
+ * @author bruce.zhu@GeekTrainingCamp
+ * @see PermutationSolution
  * - 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
  * - 输入：nums = [1,1,2]
  * 输出：[[1,1,2],[1,2,1],[2,1,1]]
@@ -17,8 +20,6 @@ import java.util.List;
  * <p>
  * 1 <= nums.length <= 8
  * -10 <= nums[i] <= 10
- *
- * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-01-16 10:39:52
  */
 public class PermutationAdvancedSolution {
@@ -59,12 +60,11 @@ public class PermutationAdvancedSolution {
     }
 
     /**
-     * 设计思想：主要实现还是参考
+     * 特别的地方：需要去重，我们先将原数组进行升序排序，保证重复的数字都是相邻的，然后我们在枚举时，只取重复数字中的第一个，其他的直接跳过 (模拟人工排列)
      *
      * @param nums
      * @return
      * @see PermutationSolution
-     * - 特别的地方：需要去重，我们先将原数组进行升序排序，保证重复的数字都是相邻的，然后我们在枚举时，只取重复数字中的第一个，其他的直接跳过
      * - 复杂度不变：时间复杂度O(n*n!)，空间复杂度O(n)
      */
     private List<List<Integer>> permuteUnique(final int[] nums) {
