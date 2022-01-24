@@ -1,8 +1,13 @@
 package com.homework.week4;
 
+import com.teachingpractice.week4.NumberOfIslandsSolution;
+
 /**
  * 算法实现：统计封闭岛屿的数目
  * - https://leetcode-cn.com/problems/number-of-closed-islands/ (1254题)
+ *
+ * @author bruce.zhu@GeekTrainingCamp
+ * @see NumberOfIslandsSolution
  * <p>
  * - 有一个二维矩阵 grid ，每个位置要么是陆地（记号为 0 ）要么是水域（记号为 1 ）。
  * <p>
@@ -31,8 +36,6 @@ package com.homework.week4;
  * <p>
  * 1 <= grid.length, grid[0].length <= 100
  * 0 <= grid[i][j] <=1
- *
- * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-01-23 01:33:28
  */
 public class NumberOfClosedIslandsSolution {
