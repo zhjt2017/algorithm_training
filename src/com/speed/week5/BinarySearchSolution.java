@@ -30,12 +30,14 @@ public class BinarySearchSolution {
         System.out.println("Input nums : " + Arrays.toString(nums) + ", target : " + target);
         System.out.println("Output result index : " + solution.binarySearch(nums, target));
         System.out.println("Output result index (simple) : " + solution.binarySearchSimple(nums, target));
+        System.out.println("Output result index (simple multi compare) : " + solution.binarySearchSimpleMultiCompare(nums, target));
 
         nums = new int[]{-1, 0, 3, 5, 9, 12};
         target = 2;
         System.out.println("Input nums : " + Arrays.toString(nums) + ", target : " + target);
         System.out.println("Output result index : " + solution.binarySearch(nums, target));
         System.out.println("Output result index (simple) : " + solution.binarySearchSimple(nums, target));
+        System.out.println("Output result index (simple multi compare) : " + solution.binarySearchSimpleMultiCompare(nums, target));
     }
 
     /**
@@ -119,6 +121,48 @@ public class BinarySearchSolution {
                 start = mid + 1;
             } else {
                 end = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 每次循环中, 除了比较mid外, 再比较通过mid计算的新的left或者right边界, 可以有效减少循环次数(这一点, 在nums中允许元素重复时, 更有效果)
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    private int binarySearchSimpleMultiCompare(final int[] nums, final int target) {
+        // 为保证start<end的成立, 先特殊处理掉一个元素的情形 (此情形处理掉后, 通过mid计算的start不会出界)
+        if (nums.length == 1) {
+            return nums[0] == target ? 0 : -1;
+        }
+        // 为保证通过mid计算的end不出界, 先特殊处理掉2个元素的情形
+        if (nums.length == 2) {
+            if (nums[1] == target) {
+                return 1;
+            }
+            return nums[0] == target ? 0 : -1;
+        }
+        int start = 0;
+        int end = nums.length - 1;
+        int mid;
+        while (start < end) {
+            mid = ((end - start) >> 1) + start;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            if (nums[mid] < target) {
+                start = mid + 1;
+                if (nums[start] == target) {
+                    return start;
+                }
+            } else {
+                end = mid - 1;
+                if (nums[end] == target) {
+                    return end;
+                }
             }
         }
         return -1;
