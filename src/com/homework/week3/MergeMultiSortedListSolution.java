@@ -1,5 +1,7 @@
 package com.homework.week3;
 
+import com.teachingpractice.week5.MergeMultiSortedListByHeapSolution;
+
 /**
  * 算法实现：分治-多个升序链表的合并
  * - 返回合并后的链表
@@ -21,6 +23,7 @@ package com.homework.week3;
  * lists[i].length 的总和不超过 10^4
  *
  * @author bruce.zhu@GeekTrainingCamp
+ * @see MergeMultiSortedListByHeapSolution
  * @since 2022-01-16 03:09:09
  */
 public class MergeMultiSortedListSolution {
@@ -38,15 +41,15 @@ public class MergeMultiSortedListSolution {
 
         ListNode[] lists = new ListNode[]{head1, head2, head3};
         System.out.println("input: " + lists);
-        System.out.println("merge result : " + mergetK(lists));
+        System.out.println("merge result : " + mergeK(lists));
 
         lists = new ListNode[0];
         System.out.println("input: " + lists);
-        System.out.println("merge result : " + mergetK(lists));
+        System.out.println("merge result : " + mergeK(lists));
 
         lists = new ListNode[]{null};
         System.out.println("input: " + lists);
-        System.out.println("merge result : " + mergetK(lists));
+        System.out.println("merge result : " + mergeK(lists));
     }
 
     static class ListNode {
@@ -66,12 +69,12 @@ public class MergeMultiSortedListSolution {
         }
     }
 
-    private static ListNode mergetK(final ListNode[] lists) {
+    private static ListNode mergeK(final ListNode[] lists) {
         if (lists.length == 0) {
-            return new ListNode();
+            return null;
         }
         if (lists.length == 1) {
-            return null;
+            return lists[0];
         }
         return mergeMulti(lists, 0, lists.length - 1);
     }
@@ -82,6 +85,8 @@ public class MergeMultiSortedListSolution {
          这里主要考虑“分治”的思想，来降低时间复杂度，将k^2降低为k*log(k)，则需要分层(每层自己的逻辑：merge2个合并后的链表)，使用递归实现
           (基于题目中k最大为10^4, 每次分层时mid=(start+end)>>1)
          直到base case: start==end, start不可能大于end, 此时不用合并，直接返回其链表本身
+         总体时间复杂度: O(n*k*log(k)) (log(k)层, 每层n*k次比较元素和放入元素)
+         总体空间复杂度: O(log(k))(由于合并的是链表, 无须建立新的数据结构, 只要修改其next指向即可, 故空间复杂度=递归深度)
          */
         if (start == end) {
             return lists[start];
