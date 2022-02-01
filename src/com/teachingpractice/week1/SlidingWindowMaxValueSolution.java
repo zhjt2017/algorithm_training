@@ -1,5 +1,7 @@
 package com.teachingpractice.week1;
 
+import com.teachingpractice.week5.SlidingWindowMaxValueByHeapSolution;
+
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -23,6 +25,7 @@ import java.util.Deque;
  * 输出：[4]
  *
  * @author bruce.zhu@GeekTrainingCamp
+ * @see SlidingWindowMaxValueByHeapSolution
  * @since 2022-01-05 12:57:30
  */
 public class SlidingWindowMaxValueSolution {
