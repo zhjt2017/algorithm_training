@@ -55,6 +55,31 @@ public class BinarySearchTreeDeleteNodeSolution {
         if (root == null) {
             return null;
         }
+
+        if (root.val == key) {
+            // 当最多只有一个子树时, 该子树上移到root位置, root删除完成
+            if (root.left == null) {
+                return root.right;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+            // 当左右子树都存在时, 则必然在右子树上可以找到后继者, 将其原节点删除, 并将其值赋予root节点
+            TreeNode next = root.right;
+            while (next.left != null) {
+                next = next.left;
+            }
+            root.val = next.val;
+            // 删除其原节点, 由于原节点是叶子节点, 则直接递归执行即可
+            root.right = deleteNode(root.right, next.val);
+            return root;
+        }
+
+        if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        } else {
+            root.left = deleteNode(root.left, key);
+        }
         return root;
     }
 
