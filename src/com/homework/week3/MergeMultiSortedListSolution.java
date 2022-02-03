@@ -1,6 +1,6 @@
 package com.homework.week3;
 
-import com.teachingpractice.week5.MergeMultiSortedListByHeapSolution;
+import com.teachingpractice.week4.MergeMultiSortedListByHeapSolution;
 
 /**
  * 算法实现：分治-多个升序链表的合并

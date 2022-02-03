@@ -1,6 +1,6 @@
 package com.teachingpractice.week1;
 
-import com.teachingpractice.week5.SlidingWindowMaxValueByHeapSolution;
+import com.teachingpractice.week4.SlidingWindowMaxValueByHeapSolution;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
