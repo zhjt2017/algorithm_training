@@ -1,7 +1,9 @@
 package com.teachingpractice.week5;
 
+import java.util.Arrays;
+
 /**
- * 算法实现: 寻找旋转排序数组中的最小值
+ * 算法实现: 拓展二分查找 - 寻找旋转排序数组中的最小值
  * - https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/ (153题)
  * <p>
  * - 已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,2,4,5,6,7] 在变化后可能得到：
@@ -33,11 +35,46 @@ package com.teachingpractice.week5;
  */
 public class RotatedSortedArrayFindMinSolution {
     public static void main(String[] args) {
+        final RotatedSortedArrayFindMinSolution solution = new RotatedSortedArrayFindMinSolution();
 
+        int[] nums = new int[]{3, 4, 5, 1, 2};
+        System.out.println("Input nums : " + Arrays.toString(nums));
+        System.out.println("Output min value : " + solution.findMin(nums));
+
+        nums = new int[]{4, 5, 6, 7, 0, 1, 2};
+        System.out.println("Input nums : " + Arrays.toString(nums));
+        System.out.println("Output min value : " + solution.findMin(nums));
+
+        nums = new int[]{11, 13, 15, 17};
+        System.out.println("Input nums : " + Arrays.toString(nums));
+        System.out.println("Output min value : " + solution.findMin(nums));
     }
 
+    /**
+     * 二分查找更为广泛的应用
+     * - 条件(表达式) 在整体上满足单调性, 即可使用二分
+     * <p>
+     * - 本题: 与最后一个数last比较, 大于 last 的认为是0, 小于等于 last 的认为是1, 那么整体上就是递增序列, 即求 第一个 大于等于1 的位置上的数
+     * - 我们将 大于等于1 认为是满足条件, 那么题解的描述即为:
+     * - 从左往右, 求第一个满足nums[index]小于等于last的位置上的数 (后继)
+     *
+     * @param nums
+     * @return
+     */
     private int findMin(final int[] nums) {
-        return -1;
+        int left = 0;
+        int right = nums.length - 1;
+        final int last = nums[right];
+        int mid;
+        while (left < right) {
+            mid = ((right - left) >> 1) + left;
+            if (nums[mid] <= last) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return nums[right];
     }
 
     /**
