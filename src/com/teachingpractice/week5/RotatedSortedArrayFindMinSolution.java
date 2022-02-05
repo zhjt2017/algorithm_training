@@ -40,14 +40,17 @@ public class RotatedSortedArrayFindMinSolution {
         int[] nums = new int[]{3, 4, 5, 1, 2};
         System.out.println("Input nums : " + Arrays.toString(nums));
         System.out.println("Output min value : " + solution.findMin(nums));
+        System.out.println("Output min value : " + solution.findMinAnother(nums));
 
         nums = new int[]{4, 5, 6, 7, 0, 1, 2};
         System.out.println("Input nums : " + Arrays.toString(nums));
         System.out.println("Output min value : " + solution.findMin(nums));
+        System.out.println("Output min value : " + solution.findMinAnother(nums));
 
         nums = new int[]{11, 13, 15, 17};
         System.out.println("Input nums : " + Arrays.toString(nums));
         System.out.println("Output min value : " + solution.findMin(nums));
+        System.out.println("Output min value : " + solution.findMinAnother(nums));
     }
 
     /**
@@ -69,6 +72,27 @@ public class RotatedSortedArrayFindMinSolution {
         while (left < right) {
             mid = ((right - left) >> 1) + left;
             if (nums[mid] <= last) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return nums[right];
+    }
+
+    /**
+     * 使用可能不断变小的最新nums[right]替代last进行条件比较
+     *
+     * @param nums
+     * @return
+     */
+    private int findMinAnother(final int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int mid;
+        while (left < right) {
+            mid = ((right - left) >> 1) + left;
+            if (nums[mid] <= nums[right]) {
                 right = mid;
             } else {
                 left = mid + 1;
