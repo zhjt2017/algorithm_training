@@ -31,10 +31,19 @@ public class BinarySearchSquareRootSolution {
         int x = 4;
         System.out.println("Input x = " + x);
         System.out.println("Output mySquareRoot = " + solution.mySquareRoot(x));
+        System.out.println("Output doubleSquareRoot = " + solution.doubleSquareRoot(x));
+        System.out.println();
 
         x = 8;
         System.out.println("Input x = " + x);
         System.out.println("Output mySquareRoot = " + solution.mySquareRoot(x));
+        System.out.println("Output doubleSquareRoot = " + solution.doubleSquareRoot(x));
+        System.out.println();
+
+        x = 9;
+        System.out.println("Input x = " + x);
+        System.out.println("Output mySquareRoot = " + solution.mySquareRoot(x));
+        System.out.println("Output doubleSquareRoot = " + solution.doubleSquareRoot(x));
     }
 
     /**
@@ -57,5 +66,39 @@ public class BinarySearchSquareRootSolution {
         }
 
         return left;
+    }
+
+    /**
+     * 实数二分, 仍然是求满足mid*mid<=x的最大值
+     *
+     * @param x
+     * @return
+     */
+    private double doubleSquareRoot(final double x) {
+        final double minDiff = 1e-7;
+        System.out.println("Termination condition : " + minDiff + ", decimal output : " + String.format("%.9f", minDiff));
+        double left = 0;
+        double right = Math.max(x, 1.0);
+        double mid;
+        while (right - left > minDiff) {
+            mid = (left + right) / 2.0;
+            if (mid * mid <= x) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        // 这里特别处理一个问题, 就是平方根刚好是整数, 但是返回的结果不够精准的问题 (这是因为终止条件的问题)
+        System.out.println("double left : " + left);
+        int intLeft = (int) left;
+        if ((intLeft + 1) * (intLeft + 1) == x) {
+            intLeft = intLeft + 1;
+            System.out.println("int left : " + intLeft);
+            return intLeft;
+        } else {
+            System.out.println("int left : " + intLeft);
+            return left;
+        }
     }
 }
