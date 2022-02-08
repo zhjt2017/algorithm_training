@@ -19,6 +19,15 @@ import java.util.List;
  * <p>
  * - 输入：nums = [0], target = 0
  * 输出：[]
+ * <p>
+ * - 输入: nums = [0,0,5,5,5], target = 5
+ * 输出: [0,0,5]
+ * <p>
+ * 0 <= nums.length <= 3000
+ * -10^5 <= nums[i] <= 10^5
+ * <p>
+ * - 时间复杂度 O(n^2)
+ * - 空间复杂度 O(1) (由于改变了nums, 也可以认为需要一个副本O(N))
  *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-02-08 12:24:20
@@ -41,6 +50,11 @@ public class ThreeSumSolution {
         target = 0;
         System.out.println("Input nums : " + Arrays.toString(nums) + ", target : " + target);
         System.out.println("Output three nums : " + solution.threeSum(nums, target));
+
+        nums = new int[]{0, 0, 5, 5, 5};
+        target = 5;
+        System.out.println("Input nums : " + Arrays.toString(nums) + ", target : " + target);
+        System.out.println("Output three nums : " + solution.threeSum(nums, target));
     }
 
     private List<List<Integer>> threeSum(final int[] nums, final int target) {
@@ -55,8 +69,12 @@ public class ThreeSumSolution {
             if (c < n - 1 && nums[c] == nums[c + 1]) {
                 continue;
             }
-            // 优化c的终止条件: 当c固定时, a与b取最大值时, sum仍然 < target, 则c及其更小的c都无效
-            if (nums[c] + nums[c - 1] + nums[c - 2] < target) {
+            // 优化c的终止条件: 当c固定时, a与b取最大值时, sum仍然 < target, 则c及其更小的c都无效 (如果刚好找到, 也是该c下的唯一解)
+            sum = nums[c] + nums[c - 1] + nums[c - 2];
+            if (sum <= target) {
+                if (sum == target) {
+                    result.add(Arrays.asList(nums[c - 2], nums[c - 1], nums[c]));
+                }
                 break;
             }
 
