@@ -1,6 +1,8 @@
 package com.teachingpractice.week2;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * TwoSumSolution的特例，给定的整数数组是已经按大小排好序的 (这里不妨设为递增排序)
@@ -34,6 +36,7 @@ public class TwoSumOrderedSolution {
      * - 索引i从左侧开始，索引j从右侧开始，基于每个被放弃掉的i或者j都是相当于已经遍历过另一半即可保证该索引的值一定不是一个答案，从而保证正确性
      * 总体时间复杂度：O(n)
      * 总体空间复杂度：O(1)
+     * - while循环的写法 (while写法更好理解, while与for写法, 演绎过程是一样的)
      *
      * @param nums   输入方自己保证2个已上的元素
      * @param target
@@ -55,5 +58,80 @@ public class TwoSumOrderedSolution {
             }
         }
         return new int[]{};
+    }
+
+    /**
+     * for循环的写法
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    private static int[] twoSumFor(final int[] nums, final int target) {
+        int sum;
+        int i = 0;
+        for (int j = nums.length - 1; j > i; j--) {
+            for (; i < j; i++) {
+                sum = nums[i] + nums[j];
+                if (sum > target) {
+                    break;
+                }
+                if (sum < target) {
+                    continue;
+                }
+                return new int[]{nums[i], nums[j]};
+            }
+        }
+
+        return new int[]{};
+    }
+
+
+    private static List<int[]> twoSumMultiNoDuplicateResults(final int[] nums, final int target) {
+        final List<int[]> results = new LinkedList<>();
+        int i = 0;
+        int j = nums.length - 1;
+        int sum;
+        while (i < j) {
+            sum = nums[i] + nums[j];
+            if (sum > target) {
+                j--;
+                continue;
+            }
+            if (sum < target) {
+                i++;
+                continue;
+            }
+            results.add(new int[]{nums[i], nums[j]});
+            while (i + 1 < j && nums[i] == nums[i + 1]) {
+                i++;
+            }
+            i++;
+        }
+        return results;
+    }
+
+    private static List<int[]> twoSumMultiNoDuplicateResultsFor(final int[] nums, final int target) {
+        final List<int[]> results = new LinkedList<>();
+
+        int sum;
+        int i = 0;
+        for (int j = nums.length - 1; j > i; j--) {
+            for (; i < j; i++) {
+                sum = nums[i] + nums[j];
+                if (sum > target) {
+                    break;
+                }
+                if (sum < target) {
+                    continue;
+                }
+                results.add(new int[]{nums[i], nums[j]});
+                while (i + 1 < j && nums[i] == nums[i + 1]) {
+                    i++;
+                }
+            }
+        }
+
+        return results;
     }
 }
