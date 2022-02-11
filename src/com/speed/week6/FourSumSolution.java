@@ -78,91 +78,87 @@ public class FourSumSolution {
      */
     private List<List<Integer>> fourSum(final int[] nums, final int target) {
         final List<List<Integer>> result = new LinkedList<>();
-        final int minLength = 4;
-        if (nums == null || nums.length < minLength) {
+        if (nums == null || nums.length < 4) {
             return result;
         }
 
         Arrays.sort(nums);
-        System.out.println("Sorted nums : " + Arrays.toString(nums));
-
-        // 本题需要考虑一个问题: nums[i]的取值范围, int范围最多容纳2个数的和 (3个数及以上就有可能越界), 而target也在这个范围, 故sum得使用long来进行计算
-
         final int n = nums.length;
+        // 注意到题意中nums中元素的取值范围, 则使用long计算sum
+        long sum, abcTarget;
         final long minValueABC = (long) nums[0] + nums[1] + nums[2];
         final long minValueAB = nums[0] + nums[1];
-        int a, b, c;
-        long sum, abcTarget, abTarget;
-        for (int d = n - 1; d >= minLength - 1; d--) {
-            // 去重: 对于相同的d, 只取最大的那个, 这样可以给a, b, c最大的空间, 不遗漏不重复
+        for (int d = n - 1; d >= 3; d--) {
+            // 去重:
             if (d < n - 1 && nums[d] == nums[d + 1]) {
                 continue;
             }
-            // 优化d的终止条件: 当d固定时, a+b+c取最大值时, sum仍然 < target, 则d及其更小的d都无效 (如果刚好找到, 也是该d下的唯一解)
+            // 优化d的终止条件: a+b+c取最大值时, sum还是小了, 则d太小了 (并取sum刚好相等时的唯一解)
             sum = (long) nums[d - 3] + nums[d - 2] + nums[d - 1] + nums[d];
             if (sum <= target) {
-                if (sum == target) {
-                    result.add(Arrays.asList(nums[d - 3], nums[d - 2], nums[d - 1], nums[d]));
-                }
+                addUniqueAns(result, nums, sum, target, d - 3, d - 2, d - 1, d);
                 break;
             }
-            // 优化d的迭代条件: 当d固定时, a+b+c取最小值时, sum仍然 > target, 则当前d不用再进行内部迭代 (如果刚好找到, 也是该d下的唯一解)
+            // 优化d的迭代条件: a+b+c取最小值时, sum还是大了, 则d太大了 (并取sum刚好相等时的唯一解)
             sum = minValueABC + nums[d];
             if (sum >= target) {
-                if (sum == target) {
-                    result.add(Arrays.asList(nums[0], nums[1], nums[2], nums[d]));
-                }
+                addUniqueAns(result, nums, sum, target, 0, 1, 2, d);
                 continue;
             }
 
             // d固定时, 求三数之和
             abcTarget = target - nums[d];
-            for (c = d - 1; c > 1; c--) {
+            for (int c = d - 1; c > 1; c--) {
                 // 去重: 对于相同的c, 只取最大的那个, 这样可以给a, b最大的空间, 不遗漏不重复
                 if (c < d - 1 && nums[c] == nums[c + 1]) {
                     continue;
                 }
-                // 优化c的终止条件: 当c固定时, a+b取最大值时, sum仍然 < target, 则c及其更小的c都无效 (如果刚好找到, 也是该c下的唯一解)
+                // 优化c的终止条件: a+b取最大值时, sum还是小了, 则c太小了 (并取sum刚好相等时的唯一解)
                 sum = (long) nums[c - 2] + nums[c - 1] + nums[c];
                 if (sum <= abcTarget) {
-                    if (sum == abcTarget) {
-                        result.add(Arrays.asList(nums[c - 2], nums[c - 1], nums[c], nums[d]));
-                    }
+                    addUniqueAns(result, nums, sum, abcTarget, c - 2, c - 1, c, d);
                     break;
                 }
-                // 优化c的迭代条件: 当c固定时, a+b取最小值时, sum仍然 > target, 则当前c不用再进行内部迭代 (如果刚好找到, 也是该c下的唯一解)
+                // 优化c的迭代条件: a+b取最小值时, sum还是大了, 则c太大了 (并取sum刚好相等时的唯一解)
                 sum = minValueAB + nums[c];
                 if (sum >= abcTarget) {
-                    if (sum == abcTarget) {
-                        result.add(Arrays.asList(nums[0], nums[1], nums[c], nums[d]));
-                    }
+                    addUniqueAns(result, nums, sum, abcTarget, 0, 1, c, d);
                     continue;
                 }
 
                 // c固定时, 采用双指针求a与b
-                abTarget = abcTarget - nums[c];
-                a = 0;
-                b = c - 1;
-                while (a < b) {
-                    sum = (long) nums[a] + nums[b];
-                    if (sum < abTarget) {
-                        a++;
-                        continue;
-                    }
-                    if (sum > abTarget) {
-                        b--;
-                        continue;
-                    }
-                    result.add(Arrays.asList(nums[a], nums[b], nums[c], nums[d]));
-                    // b固定时, 同样的a只能取一次, 那么就必须找到a的下一个不同值 (或者直到a=b也找不到, 那么就终止)
-                    while (a + 1 < b && nums[a] == nums[a + 1]) {
-                        a++;
-                    }
-                    a++;
-                }
+                doTwoSum(result, nums, abcTarget - nums[c], c, d);
             }
         }
         return result;
+    }
+
+    private void addUniqueAns(final List<List<Integer>> result, final int[] nums, final long sum, final long target,
+                              final int a, final int b, final int c, final int d) {
+        if (sum == target) {
+            result.add(Arrays.asList(nums[a], nums[b], nums[c], nums[d]));
+        }
+    }
+
+    private void doTwoSum(final List<List<Integer>> result, final int[] nums, final long target, final int c, final int d) {
+        int a = 0;
+        int b = c - 1;
+        while (a < b) {
+            if (nums[a] + nums[b] < target) {
+                a++;
+                continue;
+            }
+            if (nums[a] + nums[b] > target) {
+                b--;
+                continue;
+            }
+            result.add(Arrays.asList(nums[a], nums[b], nums[c], nums[d]));
+            // 去重, b固定时, 同样的a只取第一个
+            a++;
+            while (a < b && nums[a] == nums[a - 1]) {
+                a++;
+            }
+        }
     }
 
     /**

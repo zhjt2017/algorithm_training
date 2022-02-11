@@ -28,6 +28,7 @@ import java.util.Arrays;
  * 1 <= m <= min(50, nums.length)
  *
  * @author bruce.zhu@GeekTrainingCamp
+ *
  * @since 2022-02-06 06:22:58
  */
 public class SplitArrayMinLargestSumSolution {
