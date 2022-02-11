@@ -140,6 +140,15 @@ public class FourSumSolution {
         }
     }
 
+    /**
+     * c与d的取值的变化，已经将a、b的范围进行了极大的压缩，此时如果在计算a与b的两数之和时，双指针夹逼指针逐个移动即可，二分查找来移动意义已经不大了，消耗大于收益
+     *
+     * @param result
+     * @param nums
+     * @param target
+     * @param c
+     * @param d
+     */
     private void doTwoSum(final List<List<Integer>> result, final int[] nums, final long target, final int c, final int d) {
         int a = 0;
         int b = c - 1;

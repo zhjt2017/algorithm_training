@@ -24,11 +24,19 @@ public class TwoSumOrderedSolution {
         int target = 9;
         System.out.println("nums = " + Arrays.toString(nums) + ",target = " + target);
         System.out.println("result : " + Arrays.toString(twoSum(nums, target)));
+        System.out.println("result : " + Arrays.toString(twoSumFurther(nums, target)));
 
         nums = new int[]{10, 26, 30, 31, 47, 60};
         target = 40;
         System.out.println("nums = " + Arrays.toString(nums) + ",target = " + target);
         System.out.println("result : " + Arrays.toString(twoSum(nums, target)));
+        System.out.println("result : " + Arrays.toString(twoSumFurther(nums, target)));
+
+        nums = new int[]{5, 25, 75};
+        target = 100;
+        System.out.println("nums = " + Arrays.toString(nums) + ",target = " + target);
+        System.out.println("result : " + Arrays.toString(twoSum(nums, target)));
+        System.out.println("result : " + Arrays.toString(twoSumFurther(nums, target)));
     }
 
     /**
@@ -58,6 +66,65 @@ public class TwoSumOrderedSolution {
             }
         }
         return new int[]{};
+    }
+
+    /**
+     * 关于双指针夹逼，在nums数据量很大的时候，还可以进一步使用二分查找来进行优化 (空间换时间)
+     * - 时间复杂度 O(logN)
+     * - 空间复杂度 O(logN)
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    private static int[] twoSumFurther(final int[] nums, final int target) {
+        int i = 0;
+        int j = nums.length - 1;
+        int sum;
+        while (i < j) {
+            sum = nums[i] + nums[j];
+            if (sum == target) {
+                return new int[]{nums[i], nums[j]};
+            }
+            if (sum > target) {
+                // 如果大了，就二分查找到使得<=target的最大值
+                j = maxLowerIndex(nums, target - nums[i], i, j);
+            } else {
+                // 如果小了，就二分查找到使得>=target的最小值
+                i = minUpperIndex(nums, target - nums[j], i, j);
+            }
+        }
+        return new int[]{};
+    }
+
+    private static int maxLowerIndex(final int[] nums, final int targetValue, final int i, final int j) {
+        int left = i;
+        int right = j - 1;
+        int mid;
+        while (left < right) {
+            mid = ((right - left + 1) >> 1) + left;
+            if (nums[mid] <= targetValue) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+
+    private static int minUpperIndex(final int[] nums, final int targetValue, final int i, final int j) {
+        int left = i + 1;
+        int right = j;
+        int mid;
+        while (left < right) {
+            mid = ((right - left) >> 1) + left;
+            if (nums[mid] >= targetValue) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right;
     }
 
     /**
