@@ -3,7 +3,7 @@ package com.homework.week5;
 import java.util.Arrays;
 
 /**
- * 算法实现: 二分答案 - 在D天内送达包裹的能力
+ * 算法实现: 二分答案(试探) - 在D天内送达包裹的能力
  * - https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/ (1011题)
  * <p>
  * 传送带上的包裹必须在 days 天内从一个港口运送到另一个港口。

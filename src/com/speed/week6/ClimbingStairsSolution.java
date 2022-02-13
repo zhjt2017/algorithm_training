@@ -23,9 +23,7 @@ package com.speed.week6;
  * 1 <= n <= 45
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-02-08 03:49:03
- * @since 2022-02-08 10:28:37
  */
 public class ClimbingStairsSolution {
     public static void main(String[] args) {

@@ -28,16 +28,23 @@ public class SortAnArraySolution {
         int[] nums = new int[]{5, 2, 3, 1};
         System.out.println("Input array : " + Arrays.toString(nums));
         System.out.println("Output sorted : " + Arrays.toString(solution.sortArray(nums)));
+        nums = new int[]{5, 2, 3, 1};
         System.out.println("Output sorted : " + Arrays.toString(solution.sortArrayHeap(nums)));
+        nums = new int[]{5, 2, 3, 1};
+        System.out.println("Output sorted : " + Arrays.toString(solution.sortArrayMerge(nums)));
 
         nums = new int[]{5, 1, 1, 2, 0, 0};
         System.out.println("Input array : " + Arrays.toString(nums));
         System.out.println("Output sorted : " + Arrays.toString(solution.sortArray(nums)));
+        nums = new int[]{5, 1, 1, 2, 0, 0};
         System.out.println("Output sorted : " + Arrays.toString(solution.sortArrayHeap(nums)));
+        nums = new int[]{5, 1, 1, 2, 0, 0};
+        System.out.println("Output sorted : " + Arrays.toString(solution.sortArrayMerge(nums)));
     }
 
     /**
      * 这里呢，我们就使用快速排序来实现 (交换排序-快速排序)
+     * - 分治-快速排序
      * - 时间复杂度: 期望O(NlogN)
      * - 空间复杂度: 期望O(logN)
      * - leetcode执行: 15ms, 49.5MB
@@ -105,5 +112,59 @@ public class SortAnArraySolution {
             nums[i] = minHeap.poll();
         }
         return nums;
+    }
+
+    /**
+     * 归并排序
+     * 分治-归并排序
+     * - 时间复杂度 O(NlogN)
+     * - 空间复杂度 O(N)
+     * --- 需要N/2的额外空间
+     * --- 方法栈空间 logN
+     * - leetcode执行: 8ms, 50.5MB (比快速排序要略微快一点)
+     *
+     * @param nums
+     * @return
+     */
+    int[] sortArrayMerge(final int[] nums) {
+        temp = new int[(nums.length + 1) >> 1];
+        merge(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private int[] temp;
+
+    private void merge(final int[] nums, final int left, final int right) {
+        if (left == right) {
+            return;
+        }
+        if (left + 1 == right) {
+            if (nums[left] > nums[right]) {
+                temp[0] = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp[0];
+            }
+            return;
+        }
+        int mid = ((right - left) >> 1) + left;
+        merge(nums, left, mid);
+        merge(nums, mid + 1, right);
+        for (int i = mid + 1; i <= right; i++) {
+            temp[i - mid - 1] = nums[i];
+        }
+        // 合并左右2个有序数组，其实就是将左边有序数组中比temp中最小的数大的数进行排序
+        int index = right;
+        int i = mid;
+        int j = right - mid - 1;
+        while (j >= 0) {
+            if (i < left || nums[i] <= temp[j]) {
+                nums[index] = temp[j];
+                j--;
+            } else {
+                nums[index] = nums[i];
+                i--;
+            }
+            index--;
+        }
     }
 }
