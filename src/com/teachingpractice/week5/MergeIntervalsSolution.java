@@ -1,8 +1,6 @@
 package com.teachingpractice.week5;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 算法实现: 合并区间
@@ -35,14 +33,18 @@ public class MergeIntervalsSolution {
         int[][] intervals = new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}};
         System.out.println("Input intervals : " + Arrays.deepToString(intervals));
         System.out.println("Output merged intervals : " + Arrays.deepToString(solution.merge(intervals)));
+        intervals = new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+        System.out.println("Output merged intervals (mergeBatchEvents) : " + Arrays.deepToString(solution.mergeBatchEvents(intervals)));
         System.out.println();
         intervals = new int[][]{{1, 4}, {4, 5}};
         System.out.println("Input intervals : " + Arrays.deepToString(intervals));
         System.out.println("Output merged intervals : " + Arrays.deepToString(solution.merge(intervals)));
+        intervals = new int[][]{{1, 4}, {4, 5}};
+        System.out.println("Output merged intervals (mergeBatchEvents) : " + Arrays.deepToString(solution.mergeBatchEvents(intervals)));
     }
 
     /**
-     * 先将区间进行排序 (不妨就使用jdk自带的快速排序)，那么直到找到某一个区间元素，其左区间 > 其前一个区间元素的右区间，其才是第一个不重合区间(其再作为新的一组)，重合区间刷新前面一组的右区间
+     * 思想1 - 先将区间进行排序 (不妨就使用jdk自带的快速排序)，那么直到找到某一个区间元素，其左区间 > 其前一个区间元素的右区间，其才是第一个不重合区间(其再作为新的一组)，重合区间刷新前面一组的右区间
      * - 时间复杂度 O(NlogN)
      * - 空间复杂度 O(logN)
      *
@@ -67,4 +69,34 @@ public class MergeIntervalsSolution {
         return list.toArray(new int[list.size()][2]);
     }
 
+    /**
+     * 思想2 - 差分思想 (将原来的每一个区间作为一个start事件(用1标识)，一个end事件(用-1标识)，批量事件处理，覆盖一根数轴)
+     * - (排序所有的事件，当事件总和为0时，一段最终的区间结束，其后面一个事件必然为start事件，开启下一段)
+     * - 时间复杂度 O(NlogN)
+     * - 空间复杂度 O(N)
+     *
+     * @param intervals
+     * @return
+     */
+    int[][] mergeBatchEvents(final int[][] intervals) {
+        final List<int[]> events = new ArrayList<>(intervals.length << 1);
+        for (final int[] one : intervals) {
+            events.add(new int[]{one[0], 1});
+            events.add(new int[]{one[1], -1});
+        }
+        Collections.sort(events, (a, b) -> (a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]));
+        final List<int[]> list = new LinkedList<>();
+        int start = 0;
+        int eventCovering = 0;
+        for (final int[] event : events) {
+            if (eventCovering == 0) {
+                start = event[0];
+            }
+            eventCovering += event[1];
+            if (eventCovering == 0) {
+                list.add(new int[]{start, event[0]});
+            }
+        }
+        return list.toArray(new int[list.size()][2]);
+    }
 }
