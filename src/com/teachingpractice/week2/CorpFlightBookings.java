@@ -1,7 +1,10 @@
 package com.teachingpractice.week2;
 
+import java.util.Arrays;
+
 /**
  * 算法实现：航班预订统计
+ * - https://leetcode-cn.com/problems/corporate-flight-bookings/ (1109题)
  * - [差分思想：每个元素增加相同的值]
  * <p>
  * - 这里有 n 个航班，它们分别从 1 到 n 进行编号。
@@ -40,18 +43,28 @@ package com.teachingpractice.week2;
 public class CorpFlightBookings {
     public static void main(String[] args) {
         int[][] bookings = new int[][]{{1, 2, 10}, {2, 3, 20}, {2, 5, 25}};
-        int n = 2;
-        System.out.println("bookings : " + bookings + ", n = " + n);
-        System.out.println("answer : " + corpFlightBookings(bookings, n));
+        int n = 5;
+        System.out.println("bookings : " + Arrays.deepToString(bookings) + ", n = " + n);
+        System.out.println("answer : " + Arrays.toString(corpFlightBookings(bookings, n)));
 
         bookings = new int[][]{{1, 2, 10}, {2, 2, 15}};
         n = 2;
-        System.out.println("bookings : " + bookings + ", n = " + n);
-        System.out.println("answer : " + corpFlightBookings(bookings, n));
+        System.out.println("bookings : " + Arrays.deepToString(bookings) + ", n = " + n);
+        System.out.println("answer : " + Arrays.toString(corpFlightBookings(bookings, n)));
     }
 
-    private static int[] corpFlightBookings(int[][] bookings, int n) {
-
-        return new int[]{};
+    private static int[] corpFlightBookings(final int[][] bookings, final int n) {
+        // D(0) = A(0), D(i) = A(i) - A(i-1), D的前缀和就是原数组A, A
+        final int[] diff = new int[n];
+        for (final int[] booking : bookings) {
+            diff[booking[0] - 1] += booking[2];
+            if (booking[1] < n) {
+                diff[booking[1]] -= booking[2];
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            diff[i] = diff[i - 1] + diff[i];
+        }
+        return diff;
     }
 }
