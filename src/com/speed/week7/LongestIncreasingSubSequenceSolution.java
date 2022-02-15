@@ -43,6 +43,12 @@ public class LongestIncreasingSubSequenceSolution {
         System.out.println("Output longest length of increasing sub sequence : " + solution.longestLength(nums));
     }
 
+    /**
+     * 注意：最长递增序列，不是最长连续递增序列
+     *
+     * @param nums
+     * @return
+     */
     int longestLength(final int[] nums) {
         return 0;
     }
