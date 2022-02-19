@@ -1,5 +1,7 @@
 package com.teachingpractice.week6;
 
+import com.speed.week6.StockBestTimeSolution;
+
 import java.util.Arrays;
 
 /**
@@ -28,6 +30,7 @@ import java.util.Arrays;
  * 0 <= prices[i] <= 10^4
  *
  * @author bruce.zhu@GeekTrainingCamp
+ * @see StockBestTimeSolution
  * @since 2022-02-18 11:06:46
  */
 public class StockBestTimeSolutionII {

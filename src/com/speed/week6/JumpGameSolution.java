@@ -3,7 +3,7 @@ package com.speed.week6;
 import java.util.Arrays;
 
 /**
- * 算法实现：跳跃游戏
+ * 算法实现：贪心 - 跳跃游戏
  * - https://leetcode-cn.com/problems/jump-game/ (55题)
  * <p>
  * - 给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
@@ -38,7 +38,26 @@ public class JumpGameSolution {
         System.out.println("Output can jump : " + solution.canJump(nums));
     }
 
+    /**
+     * 贪心：不可能越过最大跳跃点，只要有一个跳跃点能达到最后一个下标，则true，否则为false
+     * - 时间复杂度 O(N)
+     * - 空间复杂度 O(1)
+     *
+     * @param nums
+     * @return
+     */
     boolean canJump(final int[] nums) {
+        final int n = nums.length;
+        int farthest = 0;
+        for (int i = 0; i < n; i++) {
+            if (i > farthest) {
+                return false;
+            }
+            farthest = Math.max(farthest, i + nums[i]);
+            if (farthest >= n - 1) {
+                return true;
+            }
+        }
         return false;
     }
 }
