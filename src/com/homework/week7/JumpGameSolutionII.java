@@ -1,11 +1,9 @@
-package com.teachingpractice.week6;
-
-import com.homework.week7.JumpGameSolution;
+package com.homework.week7;
 
 import java.util.Arrays;
 
 /**
- * 算法实现：跳跃游戏 II
+ * 算法实现：跳跃游戏 II (分别使用贪心与动态规划实现)
  * - https://leetcode-cn.com/problems/jump-game-ii/ (45题)
  * <p>
  * - 给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
@@ -34,17 +32,20 @@ public class JumpGameSolutionII {
 
         int[] nums = new int[]{2, 3, 1, 1, 4};
         System.out.println("Input nums : " + Arrays.toString(nums));
-        System.out.println("Output min jump steps (while) : " + solution.jump(nums));
-        System.out.println("Output min jump steps (for) : " + solution.jumpFor(nums));
+        System.out.println("Output min jump steps (greedy-while) : " + solution.jump(nums));
+        System.out.println("Output min jump steps (greedy-for) : " + solution.jumpFor(nums));
+        System.out.println("Output min jump steps (dynamic plan) : " + solution.jumpByDp(nums));
         System.out.println();
 
         nums = new int[]{2, 3, 0, 1, 4};
         System.out.println("Input nums : " + Arrays.toString(nums));
-        System.out.println("Output min jump steps (while) : " + solution.jump(nums));
-        System.out.println("Output min jump steps (for) : " + solution.jumpFor(nums));
+        System.out.println("Output min jump steps (greedy-while) : " + solution.jump(nums));
+        System.out.println("Output min jump steps (greedy-for) : " + solution.jumpFor(nums));
+        System.out.println("Output min jump steps (dynamic plan) : " + solution.jumpByDp(nums));
     }
 
     /**
+     * 贪心实现
      * 决策包容性：同样都是跳1步，从a跳到“能跳得更远”的b，未来的可达集合包含了跳到其他b的可达集合，所以这个局部最优决策是正确的
      * - 时间复杂度 O(N)
      * - 空间复杂度 O(1)
@@ -82,6 +83,7 @@ public class JumpGameSolutionII {
     }
 
     /**
+     * 贪心实现
      * 代码的写法上，也可以直接使用for循环：原理是一样的，即：
      * - 到达每步的最大值时，累加一步，在到达这个最大值的过程中，计算下一步到达的最大值
      * - 不过这里也可以取一个巧，即从每一个起点开始算作是一步，那么到最后一个起点 (目前的前面一个位置)，算作是最后一步，则不用再判断最后一步是否超过目标位置
@@ -102,5 +104,18 @@ public class JumpGameSolutionII {
             }
         }
         return steps;
+    }
+
+    /**
+     * 动态规划实现
+     * 抽象状态：dp[i]表示到达index = i所需要的最小跳跃数
+     * 初始状态：dp[0]=0
+     * 状态转移：dp[i]=min(dp[i], dp[pre]+1) (站在i的位置往左看，把之前可以出发的点都算一遍，取最小跳跃数量)
+     *
+     * @param nums
+     * @return
+     */
+    int jumpByDp(final int[] nums) {
+        return 0;
     }
 }

@@ -1,4 +1,4 @@
-package com.speed.week6;
+package com.homework.week7;
 
 import java.util.Arrays;
 
@@ -58,6 +58,10 @@ public class JumpGameSolution {
                 return true;
             }
         }
+        return false;
+    }
+
+    boolean canJumpByDp(final int[] nums) {
         return false;
     }
 }
