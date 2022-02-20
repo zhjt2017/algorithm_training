@@ -174,4 +174,22 @@ public class LemonadeChangeSolution {
         return remaining == 0;
     }
 
+    /**
+     * 原子操作：将要找的零钱兑换开 (将加法转化为乘法进行计算)
+     *
+     * @param amount
+     * @return
+     */
+    private boolean exchangeByMultiplication(final int amount) {
+        int remaining = amount;
+        int count;
+        int countDiff;
+        for (final int denomination : orderedDenomination) {
+            count = assets.get(denomination);
+            countDiff = Math.min(count, remaining / denomination);
+            remaining -= countDiff * denomination;
+            assets.put(denomination, count - countDiff);
+        }
+        return remaining == 0;
+    }
 }
