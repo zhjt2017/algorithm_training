@@ -3,7 +3,7 @@ package com.dailytraining.month202202;
 import java.util.Arrays;
 
 /**
- * 算法训练(2022-02-19) 煎饼排序
+ * 算法训练(2022-02-20) 1个bit还是2个bit
  * <p>
  * - 有两种特殊字符：
  * - 第一种字符可以用一个比特 0 来表示
