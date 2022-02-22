@@ -1,6 +1,6 @@
 package com.homework.week6;
 
-import com.speed.week7.LongestIncreasingSubSequenceSolution;
+import com.teachingpractice.week6.LongestIncreasingSubSequenceSolution;
 
 import java.util.Arrays;
 
