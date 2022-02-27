@@ -108,6 +108,10 @@ public class LongestCommonSubsequenceSolution {
         for (int i = 1; i <= m; i++) {
             preValue = 0;
             for (int j = 1; j <= n; j++) {
+                if (j > i) {
+                    f[j] = f[j - 1];
+                    continue;
+                }
                 if (s1.charAt(i) == s2.charAt(j)) {
                     temp = f[j];
                     f[j] = preValue + 1;
@@ -125,6 +129,7 @@ public class LongestCommonSubsequenceSolution {
      * 直接使用二维数组进行“状态”的表示
      * 时间复杂度 O(MN)
      * 空间复杂度 O(MN)
+     * <p>
      *
      * @param text1
      * @param text2
@@ -142,11 +147,26 @@ public class LongestCommonSubsequenceSolution {
             for (int j = 1; j <= n; j++) {
                 if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                     f[i][j] = f[i - 1][j - 1] + 1;
+                    continue;
+                }
+                if (f[i - 1][j] > f[i][j - 1]) {
+                    f[i][j] = f[i - 1][j];
                 } else {
-                    f[i][j] = Math.max(f[i - 1][j], f[i][j - 1]);
+                    f[i][j] = f[i][j - 1];
                 }
             }
         }
+        final StringBuilder sb = new StringBuilder();
+        if (f[m][1] == 1) {
+            sb.append(text2.charAt(0));
+        }
+        for (int j = 2; j <= n; j++) {
+            if (f[m][j] == f[m][j - 1] + 1) {
+                sb.append(text2.charAt(j - 1));
+            }
+        }
+
+        System.out.println("longest common subsequence : " + sb);
         return f[m][n];
     }
 }
