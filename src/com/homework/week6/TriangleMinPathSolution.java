@@ -49,7 +49,23 @@ public class TriangleMinPathSolution {
         System.out.println("Output min path : " + solution.minPath(triangle));
     }
 
+    /**
+     * 自底向上，动态规划
+     * <p>
+     * 时间复杂度 O(N^2)
+     * 空间复杂度 O(N)
+     *
+     * @param triangle
+     * @return
+     */
     int minPath(final List<List<Integer>> triangle) {
-        return 1;
+        final int n = triangle.size();
+        final int[] f = new int[n + 1];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                f[j] = Math.min(f[j], f[j + 1]) + triangle.get(i).get(j);
+            }
+        }
+        return f[0];
     }
 }
