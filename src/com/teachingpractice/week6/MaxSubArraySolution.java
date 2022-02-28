@@ -3,7 +3,7 @@ package com.teachingpractice.week6;
 import java.util.Arrays;
 
 /**
- * 算法实现：动态规划 - 最大子序和
+ * 算法实现：动态规划 - 最大子段(串)和
  * - https://leetcode-cn.com/problems/maximum-subarray/ (53题)
  * - 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
  * - 子数组 是数组中的一个连续部分。
@@ -31,22 +31,27 @@ public class MaxSubArraySolution {
         int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
         System.out.println("Input nums : " + Arrays.toString(nums));
         System.out.println("Output maximum sub array sum : " + solution.maxSubArray(nums));
-        System.out.println("Output maximum sub array sum (divide and conquer) : " + solution.maxSubArrayDivideAndConquer(nums));
 
         nums = new int[]{1};
         System.out.println("Input nums : " + Arrays.toString(nums));
         System.out.println("Output maximum sub array sum : " + solution.maxSubArray(nums));
-        System.out.println("Output maximum sub array sum (divide and conquer) : " + solution.maxSubArrayDivideAndConquer(nums));
 
         nums = new int[]{5, 4, -1, 7, 8};
         System.out.println("Input nums : " + Arrays.toString(nums));
         System.out.println("Output maximum sub array sum : " + solution.maxSubArray(nums));
-        System.out.println("Output maximum sub array sum (divide and conquer) : " + solution.maxSubArrayDivideAndConquer(nums));
     }
 
     /**
      * 针对本题的基本方法：动态规划
      * - 前序和如果<=0，丢弃
+     * <p>
+     * f[i]表示以i结尾的最大子段和
+     * f[i]=max(f[i-1]+nums[i],nums[i])
+     * 边界：f[0]=nums[0]
+     * 目标：max{f[i]} (0<=i<n)
+     *
+     * 时间复杂度 O(N)
+     * 空间复杂度 O(1)
      *
      * @param nums
      * @return
@@ -59,15 +64,5 @@ public class MaxSubArraySolution {
             ans = Math.max(ans, pre);
         }
         return ans;
-    }
-
-    /**
-     * 更通用的方法：分治-线段和
-     *
-     * @param nums
-     * @return
-     */
-    private int maxSubArrayDivideAndConquer(final int[] nums) {
-        return 0;
     }
 }
