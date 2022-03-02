@@ -1,11 +1,9 @@
-package com.teachingpractice.week6;
-
-import com.teachingpractice.week7.StockBestTimeSolution;
+package com.teachingpractice.week7;
 
 import java.util.Arrays;
 
 /**
- * 算法实现: 贪心 - 买卖股票的最佳时机 II
+ * 算法实现: 贪心 / 动态规划 - 买卖股票的最佳时机 II
  * - https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/ (122题)
  * <p>
  * - 给定一个数组 prices ，其中 prices[i] 表示股票第 i 天的价格。
@@ -41,21 +39,28 @@ public class StockBestTimeSolutionII {
         System.out.println("Input prices : " + Arrays.toString(prices));
         System.out.println("Output max profit : " + solution.maxProfit(prices));
         System.out.println("Output max profit (further) : " + solution.maxProfitFurther(prices));
+        System.out.println("Output max profit (dp protection) : " + solution.maxProfitDp(prices));
+        System.out.println("Output max profit (dp) : " + solution.maxProfitDpAgain(prices));
         System.out.println();
 
         prices = new int[]{1, 2, 3, 4, 5};
         System.out.println("Input prices : " + Arrays.toString(prices));
         System.out.println("Output max profit : " + solution.maxProfit(prices));
         System.out.println("Output max profit (further) : " + solution.maxProfitFurther(prices));
+        System.out.println("Output max profit (dp protection) : " + solution.maxProfitDp(prices));
+        System.out.println("Output max profit (dp) : " + solution.maxProfitDpAgain(prices));
         System.out.println();
 
         prices = new int[]{7, 6, 4, 3, 1};
         System.out.println("Input prices : " + Arrays.toString(prices));
         System.out.println("Output max profit : " + solution.maxProfit(prices));
         System.out.println("Output max profit (further) : " + solution.maxProfitFurther(prices));
+        System.out.println("Output max profit (dp protection) : " + solution.maxProfitDp(prices));
+        System.out.println("Output max profit (dp) : " + solution.maxProfitDpAgain(prices));
     }
 
     /**
+     * 贪心 - 往后看一天
      * 每天都有3种选择：买、卖、什么都不做(相当于当天买与卖的次数持平)
      * 本题是一个理想预言家式的炒股状态，知道每天的股价，并且每天的任何时候股价都是一样的
      * - 当天持有股票，卖不卖？往后看一天，明天还涨就不卖，明天跌就卖
@@ -69,6 +74,7 @@ public class StockBestTimeSolutionII {
      */
     int maxProfit(final int[] prices) {
         int ans = 0;
+        // 当前是否持有股票
         boolean positionStatus = false;
         int purchasePrice = 0;
         for (int i = 0; i < prices.length - 1; i++) {
@@ -96,7 +102,7 @@ public class StockBestTimeSolutionII {
     }
 
     /**
-     * 直接输出完美结果
+     * 直接输出完美结果 (由于可以无限次交易，那么结果其实就是所有价格差全部变为利润)
      *
      * @param prices
      * @return
@@ -109,5 +115,55 @@ public class StockBestTimeSolutionII {
             }
         }
         return ans;
+    }
+
+    /**
+     * - 最优子结构：f[i,j]表示第i天结束时，持有j股股票的最大收益 (相对应的，prices[i]也表示第i天的价格，而不是第i+1天的价格)
+     * - 决策 (以天数为阶段的持仓状态机)
+     * --- 买：f[i,1] = max(f[i-1,1], f[i-1,0] - prices[i])
+     * --- 卖：f[i,0] = max(f[i-1,0], f[i-1,1] + prices[i])
+     * --- 啥也不干：f[i,j] = f[i-1,j] (上面的买、卖已经包含)
+     * - 于是 (j=0,1 共2n个点)
+     * - 边界：f[0,0]=0, 其余负无穷
+     * - 最优性动态规划问题，数组从1开始算(1-n天)，0作为边界，没算过/不合法的状态一律赋值为正/负无穷，有助于省去各种复杂的边界判断
+     * --- 求max, 赋值负无穷，求min，赋值正无穷
+     * - 目标：f[n,0]
+     * - 时间复杂度：O(N)
+     * - 空间复杂度：O(N)
+     *
+     * @param prices
+     * @return
+     */
+    int maxProfitDp(final int[] prices) {
+        final int n = prices.length;
+        final int[][] f = new int[n + 1][2];
+        Arrays.fill(f, new int[]{(int) -1e5, (int) -1e5});
+        f[0][0] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= 1; j++) {
+                f[i][1] = Math.max(f[i - 1][1], f[i - 1][0] - prices[i - 1]);
+                f[i][0] = Math.max(f[i - 1][0], f[i - 1][1] + prices[i - 1]);
+            }
+        }
+        return f[n][0];
+    }
+
+    /**
+     * 将f设置为n+1的长度，最方便，求max设置为-oo (有保护节点，无需额外设置初始值)。那么实际上，也可以将f就设置为n的长度，就没有保护节点，需要额外设置初始值
+     *
+     * @param prices
+     * @return
+     */
+    int maxProfitDpAgain(final int[] prices) {
+        final int n = prices.length;
+        final int[][] f = new int[n][2];
+        f[0][1] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j <= 1; j++) {
+                f[i][1] = Math.max(f[i - 1][1], f[i - 1][0] - prices[i]);
+                f[i][0] = Math.max(f[i - 1][0], f[i - 1][1] + prices[i]);
+            }
+        }
+        return f[n - 1][0];
     }
 }

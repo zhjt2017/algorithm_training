@@ -1,9 +1,9 @@
-package com.speed.week6;
+package com.teachingpractice.week7;
 
 import java.util.Arrays;
 
 /**
- * 算法实现: 买卖股票的最佳时机 I
+ * 算法实现: 线性动态规划 - 买卖股票的最佳时机 I
  * - https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/ (121题)
  * <p>
  * - 给定一个数组 prices ，其中 prices[i] 表示股票第 i 天的价格。
