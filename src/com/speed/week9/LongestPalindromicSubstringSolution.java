@@ -1,4 +1,4 @@
-package com.teachingpractice.week6;
+package com.speed.week9;
 
 /**
  * 算法实现：动态规划 - 最长回文子串
@@ -15,11 +15,12 @@ package com.teachingpractice.week6;
  * <p>
  * - 1 <= s.length <= 1000
  * s 仅由数字和英文字母组成
+ * TODO
  *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-02-13 04:20:08
  */
-public class LongestPalindromicSubstring {
+public class LongestPalindromicSubstringSolution {
     public static void main(String[] args) {
 
     }
