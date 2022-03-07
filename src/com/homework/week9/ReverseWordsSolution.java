@@ -1,11 +1,11 @@
-package com.speed.week7;
+package com.homework.week9;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * 算法实现：翻转字符串里的单词
+ * 算法实现：字符串处理 - 基本操作问题 - 翻转字符串里的单词
  * - https://leetcode-cn.com/problems/reverse-words-in-a-string/ (151题)
  * <p>
  * - 给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
@@ -35,7 +35,7 @@ import java.util.List;
  * 要求：尝试使用O(1) 额外空间复杂度的原地解法
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-02-15 09:59:16
+ * @since 2022-03-07 10:52:52
  */
 public class ReverseWordsSolution {
     public static void main(String[] args) {
@@ -82,7 +82,7 @@ public class ReverseWordsSolution {
     }
 
     /**
-     * 一次遍历完成 (从右向左遍历，StringBuilder不用移动已经放好的元素，仅使用append方法即可)
+     * 一次遍历(根据题意从右向左模拟)完成 (从右向左遍历，StringBuilder不用移动已经放好的元素，仅使用append方法即可)
      * - 时间复杂度 O(N)
      * - 空间复杂度 O(1)
      * - leetcode run, 2ms, 40.9MB
@@ -93,19 +93,22 @@ public class ReverseWordsSolution {
     String reverseWords(final String s) {
         final StringBuilder sb = new StringBuilder(s.length());
         int right = s.length() - 1;
+        // 1、到达第一个非空格字符(结果中第一个单词的最后一个字符) (根据题意，至少存在一个单词，故不用加范围判断)
         while (s.charAt(right) == BLANK) {
             right--;
         }
 
         int end;
         while (right >= 0) {
+            // 2、使用end记录下该单词的最后一个字符位置，然后到达该单词的第一个字符的前面一个位置 (空格或者right=-1)
             end = right;
             while (right >= 0 && s.charAt(right) != BLANK) {
                 right--;
             }
+            // 3、向结果中写入该单词，并在单词结尾固定加入单个空格作为分隔符
             sb.append(s, right + 1, end + 1);
             sb.append(BLANK);
-            // 找到下一个单词 (如果找不到就会自己跳出循环right=-1)
+            // 4、循环：到达下一个单词的最后一个字符(或者right=-1), 转到2
             while (right >= 0 && s.charAt(right) == BLANK) {
                 right--;
             }

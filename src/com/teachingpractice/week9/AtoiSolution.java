@@ -1,7 +1,7 @@
-package com.speed.week9;
+package com.teachingpractice.week9;
 
 /**
- * 算法实现：字符串转整数 (atoi : ascii to integer)
+ * 算法实现：字符串处理 - 基础知识 - 字符串转整数 (atoi : ascii to integer)
  * - https://leetcode-cn.com/problems/string-to-integer-atoi/ (8题)
  * <p>
  * 请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）。
@@ -126,7 +126,41 @@ public class AtoiSolution {
     private static final int MAX_QUOTIENT = Integer.MAX_VALUE / 10;
     private static final int MIN_QUOTIENT = Integer.MIN_VALUE / 10;
 
+    /**
+     * 根据题意完全模拟：逐个字符检查 (与myAtoiOriginal其实是一样的)
+     * - 时间复杂度 O(n)
+     * - 空间复杂度 O(1)
+     *
+     * @param s
+     * @return
+     */
     int myAtoi(final String s) {
-        return 0;
+        final int n = s.length();
+        int index = 0;
+        // 1、忽略前导空格
+        while (index < n && s.charAt(index) == BLANK) {
+            index++;
+        }
+        // 2、下一个字符：处理正负号 (正号可能被忽略)
+        int sign = 1;
+        if (index < n && (s.charAt(index) == PLUS || s.charAt(index) == MINUS)) {
+            if (s.charAt(index) == MINUS) {
+                sign = -1;
+            }
+            index++;
+        }
+        // 3、处理数字，直到非数字或结尾
+        int value = 0;
+        char c;
+        while (index < n && Character.isDigit((c = s.charAt(index)))) {
+            // 4、绝对值如果>INT_MAX, 直接取int极值, 否则取极值：value * 10 + (c - '0') > INT_MAX, 即value > (INT_MAX - (c - '0')) / 10
+            if (value > (Integer.MAX_VALUE - c + '0') / 10) {
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+            value = value * 10 - '0' + c;
+            index++;
+        }
+        // 5、返回最终结果
+        return sign * value;
     }
 }

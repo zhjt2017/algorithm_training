@@ -1,7 +1,7 @@
-package com.dailytraining.month202202;
+package com.homework.week9;
 
 /**
- * 算法训练(2022-02-23)：仅仅反转字母 (复习双指针)
+ * 算法实现：字符串处理 - 基本操作问题 - 仅仅反转字母
  * - https://leetcode-cn.com/problems/reverse-only-letters/ (917题)
  * <p>
  * - 给你一个字符串 s ，根据下述规则反转字符串：
@@ -23,7 +23,7 @@ package com.dailytraining.month202202;
  * s 不含 '\"' 或 '\\'
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-02-23 05:02:38
+ * @since 2022-03-07 11:08:59
  */
 public class ReverseOnlyLettersSolution {
     public static void main(String[] args) {
