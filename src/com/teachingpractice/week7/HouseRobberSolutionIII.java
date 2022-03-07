@@ -1,7 +1,7 @@
-package com.speed.week8;
+package com.teachingpractice.week7;
 
 /**
- * 算法实现：动态规划 - 打家劫舍III
+ * 算法实现：动态规划 - 树形动态规划 - 打家劫舍III
  * - https://leetcode-cn.com/problems/house-robber-iii/ (337题)
  * <p>
  * - 小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为 root 。
@@ -26,7 +26,7 @@ package com.speed.week8;
  */
 public class HouseRobberSolutionIII {
     public static void main(String[] args) {
-
+        // TODO
     }
 
     int rob(final TreeNode root) {

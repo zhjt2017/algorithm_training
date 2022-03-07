@@ -1,4 +1,4 @@
-package com.speed.week7;
+package com.teachingpractice.week7;
 
 import java.util.Arrays;
 
