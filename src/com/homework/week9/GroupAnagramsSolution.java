@@ -1,10 +1,12 @@
-package com.teachingpractice.week2;
+package com.homework.week9;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 字母异位词分组 (anagram 相同字母异序词)
+ * 算法实现：字符串处理 - 同构 / 异位词系列问题 - 字母异位词分组
+ * - https://leetcode-cn.com/problems/group-anagrams/ (49题)
+ * <p>
  * 给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
  * 字母异位词 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。
  * <p>
@@ -22,21 +24,24 @@ import java.util.stream.Collectors;
  * strs[i] 仅包含小写字母
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-01-07 08:55:07
+ * @since 2022-03-08 09:46:43
  */
-public class GroupAnogramsSolution {
+public class GroupAnagramsSolution {
     public static void main(String[] args) {
         String[] strs = new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
-        System.out.println("strs : " + Arrays.toString(strs));
-        System.out.println("result : " + groupAnagramSort1(strs));
+        System.out.println("Input strs : " + Arrays.toString(strs));
+        System.out.println("Out group anagrams (sort) : " + groupAnagramSort2(strs));
+        System.out.println("Out group anagrams (count) : " + groupAnagramCount2(strs));
 
         strs = new String[]{};
-        System.out.println("strs : " + Arrays.toString(strs));
-        System.out.println("result : " + groupAnagramSort1(strs));
+        System.out.println("Input strs : " + Arrays.toString(strs));
+        System.out.println("Out group anagrams (sort) : " + groupAnagramSort2(strs));
+        System.out.println("Out group anagrams (count) : " + groupAnagramCount2(strs));
 
         strs = new String[]{"a"};
-        System.out.println("strs : " + Arrays.toString(strs));
-        System.out.println("result : " + groupAnagramSort1(strs));
+        System.out.println("Input strs : " + Arrays.toString(strs));
+        System.out.println("Out group anagrams (sort) : " + groupAnagramSort2(strs));
+        System.out.println("Out group anagrams (count) : " + groupAnagramCount2(strs));
     }
 
     /**
@@ -140,6 +145,8 @@ public class GroupAnogramsSolution {
 
     /**
      * 设计思想2的写法2：append字符串替代List<Integer>作为hash key
+     * 时间复杂度：O(n*k)
+     * 空间复杂度：O(n*k)
      * <p>
      * - leetcode执行时间7ms, 内存消耗41MB
      *
