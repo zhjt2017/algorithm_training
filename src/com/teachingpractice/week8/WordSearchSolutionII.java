@@ -114,6 +114,11 @@ public class WordSearchSolutionII {
             dfs(nx, ny, next);
         }
         board[x][y] = c;
+
+        // 回溯删除Trie
+        if (next.children.isEmpty()) {
+            node.children.remove(c);
+        }
     }
 
 
