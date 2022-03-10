@@ -25,6 +25,8 @@ import java.util.Arrays;
  * n == grid[i].length
  * 1 <= n <= 100
  * grid[i][j] 为 0 或 1
+ * <p>
+ * 出题说明：(普通 BFS？双向 BFS？A*？)
  *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-03-08 10:30:32
