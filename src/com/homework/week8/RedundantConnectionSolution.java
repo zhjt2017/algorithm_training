@@ -3,7 +3,7 @@ package com.homework.week8;
 import java.util.Arrays;
 
 /**
- * 算法实现：图论算法 - 冗余连接
+ * 算法实现：并查集 - 冗余连接
  * - https://leetcode-cn.com/problems/redundant-connection/ (684题)
  *
  * <p>

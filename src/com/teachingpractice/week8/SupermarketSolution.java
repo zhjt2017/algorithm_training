@@ -1,9 +1,9 @@
-package com.speed.week8;
+package com.teachingpractice.week8;
 
 import java.util.Scanner;
 
 /**
- * 算法实现：超市
+ * 算法实现：并查集 - 超市
  * - https://www.acwing.com/problem/content/147/ (145题)
  * <p>
  * - 超市里有 N 件商品，每件商品都有利润 pi 和过期时间 di，每天只能卖一件商品，过期商品不能再卖。
