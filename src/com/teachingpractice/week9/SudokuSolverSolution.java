@@ -3,7 +3,7 @@ package com.teachingpractice.week9;
 import java.util.Arrays;
 
 /**
- * 算法实现：数独系列问题 - 解数独
+ * 算法实现：高级搜索 - 数独系列问题 - 解数独
  * - https://leetcode-cn.com/problems/sudoku-solver/ (37题)
  * <p>
  * 编写一个程序，通过填充空格来解决数独问题。
@@ -40,7 +40,7 @@ import java.util.Arrays;
  * 题目数据 保证 输入数独仅有一个解
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-03-07 09:59:20
+ * @since 2022-03-17 05:25:15
  */
 public class SudokuSolverSolution {
     public static void main(String[] args) {

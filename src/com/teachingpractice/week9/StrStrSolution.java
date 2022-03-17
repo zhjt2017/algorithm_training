@@ -1,7 +1,7 @@
-package com.speed.week9;
+package com.teachingpractice.week9;
 
 /**
- * 算法实现：实现strStr()函数
+ * 算法实现：字符串处理 - Rabin-Karp字符串哈希算法 - 实现strStr()函数
  * - https://leetcode-cn.com/problems/implement-strstr/ (28题)
  * <p>
  * - 给你两个字符串 haystack (干草堆) 和 needle(针) ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。
@@ -30,19 +30,22 @@ public class StrStrSolution {
         String haystack = "hello";
         String needle = "ll";
         System.out.println("Input haystack : " + haystack + ", needle : " + needle);
-        System.out.println("Output strStr (indexOf) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (violence) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (Rabin-Karp) : " + solution.strStrRabinKarp(haystack, needle));
         System.out.println();
 
         haystack = "aaaaa";
         needle = "bba";
         System.out.println("Input haystack : " + haystack + ", needle : " + needle);
-        System.out.println("Output strStr (indexOf) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (violence) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (Rabin-Karp) : " + solution.strStrRabinKarp(haystack, needle));
         System.out.println();
 
         haystack = "";
         needle = "";
         System.out.println("Input haystack : " + haystack + ", needle : " + needle);
-        System.out.println("Output strStr (indexOf) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (violence) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (Rabin-Karp) : " + solution.strStrRabinKarp(haystack, needle));
         System.out.println();
     }
 
@@ -186,5 +189,10 @@ public class StrStrSolution {
             }
         }
         return -1;
+    }
+
+    int strStrRabinKarp(final String haystack, final String needle) {
+        // TODO
+        return 0;
     }
 }

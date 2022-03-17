@@ -1,8 +1,8 @@
-package com.speed.week8;
+package com.teachingpractice.week8;
 
 /**
- * Dijkstra求最短路 II
- * - https://www.acwing.com/problem/content/852/
+ * 算法实现：图论算法 - 最短路径问题 - Dijkstra求最短路 II
+ * - https://www.acwing.com/problem/content/852/ (该链接可能被Acwing重置)
  * 给定一个 n 个点 m 条边的有向图，图中可能存在重边和自环，所有边权均为非负值。
  * <p>
  * 请你求出 1 号点到 n 号点的最短距离，如果无法从 1 号点走到 n 号点，则输出 −1。
@@ -31,7 +31,7 @@ package com.speed.week8;
  * 3
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-02-26 10:52:26
+ * @since 2022-03-17 06:46:29
  */
 public class DijkstraMinPathSolution {
     public static void main(String[] args) {

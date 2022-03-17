@@ -1,11 +1,11 @@
-package com.teachingpractice.weeka;
+package com.teachingpractice.week9;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 算法实现：位运算优化 - N皇后问题
- * - https://leetcode-cn.com/problems/n-queens/
+ * 算法实现：高级搜索 - 搜索剪枝 - N皇后问题
+ * - https://leetcode-cn.com/problems/n-queens/ (51题)
  * <p>
  * - n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
  * 给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。
@@ -19,17 +19,9 @@ import java.util.List;
  * <p>
  * 1 <= n <= 9
  * <p>
- * 设计思想：
- * - 皇后攻击规则：所在行任意攻击，所在列任意攻击，所在两个对角线任意攻击
- * - 对角线上的元素：2种情况：i+1,j+1或者i+1,j-1 (即i-j相等或者i+j相等)
- * - 1、排列问题，每行找到一个，然后递归到下一行，遍历每一列，不在used的列中满足，可以继续递归
- * - 2、中间不满足条件无法继续递归的，就走不到base case(最后一行也找到)，即被舍弃
- * - 3、判断时增加对角线是否used的判断，则剪枝完成
- * - 时间复杂度O(n!)
- * - 空间复杂度O(n)
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-03-07 09:45:36
+ * @since 2022-03-17 05:16:53
  */
 public class NumQueensSolution {
     public static void main(String[] args) {

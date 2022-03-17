@@ -1,8 +1,8 @@
-package com.speed.weeka;
+package com.teachingpractice.week9;
 
 /**
- * 算法实现：八数码问题
- * - https://www.acwing.com/problem/content/847/
+ * 算法实现：高级搜索 - 启发式搜索(A*) - 八数码问题 (打印方案)
+ * - https://www.acwing.com/problem/content/181/
  * <p>
  * 在一个 3×3 的网格中，1∼8 这 8 个数字和一个 x 恰好不重不漏地分布在这 3×3 的网格中。
  * <p>
@@ -38,19 +38,20 @@ package com.speed.weeka;
  * 则输入为：1 2 3 x 4 6 7 5 8
  * <p>
  * 输出格式
- * 输出占一行，包含一个整数，表示最少交换次数。
- * <p>
- * 如果不存在解决方案，则输出 −1。
+ * 输出占一行，包含一个字符串，表示得到正确排列的完整行动记录。
+ * 如果答案不唯一，输出任意一种合法方案即可。
+ * 如果不存在解决方案，则输出 unsolvable。
  * <p>
  * 输入样例：
  * 2  3  4  1  5  x  7  6  8
+ * <p>
  * 输出样例
- * 19
+ * ullddrurdllurdruldr
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-03-06 08:37:51
+ * @since 2022-03-17 05:53:08
  */
-public class EightPuzzleSolution {
+public class EightPuzzlePrintSolution {
     public static void main(String[] args) {
         // TODO
     }

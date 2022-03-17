@@ -1,16 +1,16 @@
-package com.speed.week9;
+package com.teachingpractice.week8;
 
 import java.util.Arrays;
 
 /**
- * 算法实现：；连接所有点的最小费用
+ * 算法实现：图论算法 - 最小生成树 - 连接所有点的最小费用
  * - https://leetcode-cn.com/problems/min-cost-to-connect-all-points/ (1584题)
  * <p>
  * - 给你一个points 数组，表示 2D 平面上的一些点，其中 points[i] = [xi, yi] 。
  * <p>
  * 连接点 [xi, yi] 和点 [xj, yj] 的费用为它们之间的 曼哈顿距离 ：|xi - xj| + |yi - yj| ，其中 |val| 表示 val 的绝对值。
  * <p>
- * 请你返回将所有点连接的最小总费用。只有任意两点之间 有且仅有 一条简单路径时，才认为所有点都已连接。
+ * 请你返回将所有点连接的最小总费用。只有任意两点之间 有且仅有 一条简单路径时，才认为所有点都已连接。(我意：即没有环)
  * <p>
  * 输入：points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
  * 输出：20
@@ -38,7 +38,7 @@ import java.util.Arrays;
  * 所有点 (xi, yi) 两两不同。
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-02-28 02:29:21
+ * @since 2022-03-17 06:51:47
  */
 public class MinCostToConnectAllPointsSolution {
     public static void main(String[] args) {

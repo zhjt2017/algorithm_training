@@ -3,7 +3,7 @@ package com.teachingpractice.week9;
 import java.util.Arrays;
 
 /**
- * 算法实现：数独系列问题 - 有效的数独
+ * 算法实现：高级搜索 - 数独系列问题 - 有效的数独
  * - https://leetcode-cn.com/problems/valid-sudoku/ (36题)
  * <p>
  * 请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。
@@ -46,7 +46,7 @@ import java.util.Arrays;
  * board[i][j] 是一位数字（1-9）或者 '.'
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-03-07 12:35:58
+ * @since 2022-03-17 05:25:07
  */
 public class ValidSudokuSolution {
     public static void main(String[] args) {

@@ -33,13 +33,16 @@ package com.dailytraining.month202203;
  * key 由小写英文字母组成
  * 测试用例保证：在每次调用 dec 时，数据结构中总存在 key
  * 最多调用 inc、dec、getMaxKey 和 getMinKey 方法 5 * 10^4 次
+ * <p>
+ * [微扰理论]解法：十字链表
+ * - https://leetcode-cn.com/problems/all-oone-data-structure/solution/wei-rao-li-lun-shi-zi-lian-biao-by-wfnus-9cr9/
  *
  * @author bruce.zhu@GeekTrainingCamp
  * @since 2022-03-16 10:50:30
  */
 public class AllOneDataStructureSolution {
     public static void main(String[] args) {
-
+        // TODO
     }
 
     static class AllOne {

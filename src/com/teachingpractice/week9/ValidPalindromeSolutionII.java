@@ -1,7 +1,7 @@
-package com.speed.week9;
+package com.teachingpractice.week9;
 
 /**
- * 算法实现：验证回文串
+ * 算法实现：字符串处理 - 回文串系列问题 - 验证回文串II
  * - https://leetcode-cn.com/problems/valid-palindrome-ii/ (680题)
  * <p>
  * 给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
