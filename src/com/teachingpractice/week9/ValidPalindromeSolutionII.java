@@ -28,17 +28,20 @@ public class ValidPalindromeSolutionII {
 
         String s = "aba";
         System.out.println("Input s : " + s);
-        System.out.println("Output isPalindrome : " + solution.isPalindrome(s));
+        System.out.println("Output validPalindrome : " + solution.validPalindrome(s));
+        System.out.println("Output validPalindrome common : " + solution.validPalindromeCommon(s));
         System.out.println();
 
         s = "abca";
         System.out.println("Input s : " + s);
-        System.out.println("Output isPalindrome : " + solution.isPalindrome(s));
+        System.out.println("Output validPalindrome : " + solution.validPalindrome(s));
+        System.out.println("Output validPalindrome common : " + solution.validPalindromeCommon(s));
         System.out.println();
 
         s = "abc";
         System.out.println("Input s : " + s);
-        System.out.println("Output isPalindrome : " + solution.isPalindrome(s));
+        System.out.println("Output validPalindrome : " + solution.validPalindrome(s));
+        System.out.println("Output validPalindrome common : " + solution.validPalindromeCommon(s));
         System.out.println();
     }
 
@@ -50,7 +53,7 @@ public class ValidPalindromeSolutionII {
      * @param s
      * @return
      */
-    boolean isPalindrome(final String s) {
+    boolean validPalindrome(final String s) {
         int low = 0, high = s.length() - 1;
         while (low < high) {
             char c1 = s.charAt(low), c2 = s.charAt(high);
@@ -64,11 +67,31 @@ public class ValidPalindromeSolutionII {
         return true;
     }
 
-    private boolean validPalindrome(String s, int low, int high) {
+    private boolean validPalindrome(final String s, final int low, final int high) {
         for (int i = low, j = high; i < j; ++i, --j) {
             char c1 = s.charAt(i), c2 = s.charAt(j);
             if (c1 != c2) {
                 return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 更加通用的做法：允许删除times个字符
+     *
+     * @param s
+     * @return
+     */
+    boolean validPalindromeCommon(final String s) {
+        return check(s, 0, s.length() - 1, 1);
+    }
+
+    private boolean check(final String s, final int left, final int right, final int times) {
+        for (int i = left, j = right; i < j; i++, j--) {
+            char c1 = s.charAt(i), c2 = s.charAt(j);
+            if (c1 != c2) {
+                return times > 0 && (check(s, i + 1, j, times - 1) || check(s, i, j - 1, times - 1));
             }
         }
         return true;

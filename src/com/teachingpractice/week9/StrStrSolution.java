@@ -47,6 +47,13 @@ public class StrStrSolution {
         System.out.println("Output strStr (violence) : " + solution.strStr(haystack, needle));
         System.out.println("Output strStr (Rabin-Karp) : " + solution.strStrRabinKarp(haystack, needle));
         System.out.println();
+
+        haystack = "aabaaabaaac";
+        needle = "aabaaac";
+        System.out.println("Input haystack : " + haystack + ", needle : " + needle);
+        System.out.println("Output strStr (violence) : " + solution.strStr(haystack, needle));
+        System.out.println("Output strStr (Rabin-Karp) : " + solution.strStrRabinKarp(haystack, needle));
+        System.out.println();
     }
 
     /**
@@ -191,8 +198,47 @@ public class StrStrSolution {
         return -1;
     }
 
+    /**
+     * Rabin-Karp Hash
+     * 其 O(n) 预处理 + O(1) 求出任意子串哈希值 的特性
+     * H[i] = Hash(s[0...i-1]) = (H[i-1]*b + s[i-1])mod p
+     * Hash(s[l...r]) = (H[r+1] - H[l]*b^(r-l+1))mod p, O(1)
+     * 不妨取 b = 131, p = 1e9 + 7 (一个比较大的质数)
+     *
+     * @param haystack
+     * @param needle
+     * @return
+     */
     int strStrRabinKarp(final String haystack, final String needle) {
-        // TODO
-        return 0;
+        final int n = haystack.length();
+        final int m = needle.length();
+        if (n < m) {
+            return -1;
+        }
+        final long[] h = new long[n + 1];
+        // a=1, b=2, ... , z=26
+        for (int i = 1; i <= n; i++) {
+            h[i] = (h[i - 1] * B + haystack.charAt(i - 1) - CHAR_A + 1) % P;
+        }
+
+        long hNeedle = 0;
+        long powBM = 1;
+        for (int j = 1; j <= m; j++) {
+            hNeedle = (hNeedle * B + needle.charAt(j - 1) - CHAR_A + 1) % P;
+            powBM = (powBM * B) % P;
+        }
+
+        for (int i = 1; i <= n - m + 1; i++) {
+            // i...i+m --> l = i - 1, r = i + m - 1
+            if ((h[i + m - 1] - h[i - 1] * powBM - hNeedle) % P == 0
+                    && haystack.substring(i - 1, i - 1 + m).equals(needle)) {
+                return i - 1;
+            }
+        }
+        return -1;
     }
+
+    private int B = 131;
+    private int P = (int) 1e9 + 7;
+    private char CHAR_A = 'a';
 }

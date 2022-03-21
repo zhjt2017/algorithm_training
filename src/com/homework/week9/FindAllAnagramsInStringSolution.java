@@ -1,6 +1,7 @@
 package com.homework.week9;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,9 +47,44 @@ public class FindAllAnagramsInStringSolution {
         System.out.println();
     }
 
+    /**
+     * 每个滑动窗口寻找异位词，异位词的判定条件是每个字母的个数相等
+     * - 时间复杂度 O(n+m+∑)
+     * - 空间复杂度 O(∑)
+     * - ∑表示有多少种字母，即26
+     *
+     * @param s
+     * @param p
+     * @return
+     */
     List<Integer> findAnagrams(final String s, final String p) {
         final List<Integer> ans = new ArrayList<>();
+        final int n = s.length();
+        final int m = p.length();
+        if (n < m) {
+            return ans;
+        }
 
+        final int[] pCount = new int[LETTER_SIZE];
+        final int[] slidingWindowLength = new int[LETTER_SIZE];
+        for (int i = 0; i < m; i++) {
+            pCount[p.charAt(i) - A]++;
+            slidingWindowLength[s.charAt(i) - A]++;
+        }
+
+        if (Arrays.equals(pCount, slidingWindowLength)) {
+            ans.add(0);
+        }
+        for (int i = m; i < n; i++) {
+            slidingWindowLength[s.charAt(i) - A]++;
+            slidingWindowLength[s.charAt(i - m) - A]--;
+            if (Arrays.equals(pCount, slidingWindowLength)) {
+                ans.add(i - m + 1);
+            }
+        }
         return ans;
     }
+
+    private static final int LETTER_SIZE = 26;
+    private static final char A = 'a';
 }

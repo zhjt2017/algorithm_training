@@ -47,10 +47,28 @@ public class LengthOfLastWordSolution {
     }
 
     /**
+     * 从后向前遍历，直接模拟
+     *
      * @param s
      * @return
      */
     int lengthOfLastWord(final String s) {
-        return 0;
+        int index = s.length() - 1;
+        // 找到最右边第一个不是空格的字符
+        while (s.charAt(index) == BLANK) {
+            index--;
+        }
+        // 根据题意，至少存在一个单词，则last必然>=0
+        final int last = index;
+        // 找到最后一个单词的前面一个字符
+        while (s.charAt(index) != BLANK) {
+            index--;
+            if (index == -1) {
+                return last + 1;
+            }
+        }
+        return last - index;
     }
+
+    private static final char BLANK = ' ';
 }

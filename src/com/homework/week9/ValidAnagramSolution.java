@@ -36,7 +36,33 @@ public class ValidAnagramSolution {
         System.out.println();
     }
 
+    /**
+     * 时间复杂度 O(n)
+     * 空间复杂度 O(∑) (∑ = 26)
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     boolean isAnagram(final String s, final String t) {
-        return false;
+        if (s.length() != t.length()) {
+            return false;
+        }
+        final int[] count = new int[LETTER_SIZE];
+        final int n = s.length();
+        for (int i = 0; i < n; i++) {
+            count[s.charAt(i) - A]++;
+        }
+        for (int i = 0; i < n; i++) {
+            int letterIndex = t.charAt(i) - A;
+            count[letterIndex]--;
+            if (count[letterIndex] < 0) {
+                return false;
+            }
+        }
+        return true;
     }
+
+    private static final int LETTER_SIZE = 26;
+    private static final char A = 'a';
 }

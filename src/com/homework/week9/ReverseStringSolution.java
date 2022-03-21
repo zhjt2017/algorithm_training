@@ -38,7 +38,25 @@ public class ReverseStringSolution {
         System.out.println();
     }
 
+    /**
+     * 双指针夹逼
+     * - 时间复杂度 O(n)
+     * - 空间复杂度 O(1)
+     * @param s
+     */
     void reverseString(final char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+        while (left < right) {
+            swap(s, left, right);
+            left++;
+            right--;
+        }
+    }
 
+    private void swap(final char[] s, final int left, final int right) {
+        char temp = s[left];
+        s[left] = s[right];
+        s[right] = temp;
     }
 }

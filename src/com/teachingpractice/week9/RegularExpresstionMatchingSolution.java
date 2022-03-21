@@ -52,9 +52,72 @@ public class RegularExpresstionMatchingSolution {
         System.out.println("Input : " + s + ", p : " + p);
         System.out.println("Output is match : " + solution.isMatch(s, p));
         System.out.println();
+
+        s = "aab";
+        p = "c*a*b";
+        System.out.println("Input : " + s + ", p : " + p);
+        System.out.println("Output is match : " + solution.isMatch(s, p));
+        System.out.println();
     }
 
-    boolean isMatch(final String s, final String p) {
-        return false;
+    /**
+     * dfs(从s的最后一个字符开始扫描，也算是人工数据归纳验证是否匹配)过程中的元素，构成了动态规划的状态
+     * - f[i][j]表示s的前i个字符，p的前j个字符，能否匹配
+     * - 如果p[j]是小写字母，f[i][j] = f[i-1][j-1] && s[i]==p[j]
+     * - 如果p[j]是.，f[i][j] = f[i-1][j-1]
+     * - 如果p[j]是*，
+     * - (1) 继续配 f[i][j] <- f[i-1][j] && (p[j-1]=='.' || s[i]==p[j-1])
+     * - (2) 不配了，*的使命完成了 f[i][j] <- f[i][j-2]
+     * - 至于拆分出来的每一个f[i-1][j]或f[i][j-2]能否匹配，怎么匹配，则是子问题了
+     * <p>
+     * - 初值：f[0][0] = true, f[0][j] = true (j及之前一直是：某*)
+     * - 目标：f[n][m]
+     * <p>
+     * - 时间复杂度 O(nm)
+     * - 空间复杂度 O(nm)
+     *
+     * @param sourceS
+     * @param sourceP
+     * @return
+     */
+    boolean isMatch(final String sourceS, final String sourceP) {
+        final int n = sourceS.length();
+        final int m = sourceP.length();
+        final String s = " " + sourceS;
+        final String p = " " + sourceP;
+        final boolean[][] f = new boolean[n + 1][m + 1];
+        f[0][0] = true;
+        for (int j = 2; j <= m; j += 2) {
+            if (p.charAt(j) == ASTERISK) {
+                f[0][j] = true;
+            } else {
+                break;
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (p.charAt(j) == DOT) {
+                    f[i][j] = f[i - 1][j - 1];
+                    continue;
+                }
+                if (p.charAt(j) != ASTERISK) {
+                    f[i][j] = f[i - 1][j - 1] && s.charAt(i) == p.charAt(j);
+                    continue;
+                }
+
+                // * 匹配0个的情形
+                f[i][j] = f[i][j - 2];
+                // * 匹配多个的情形 (或)
+                if (p.charAt(j - 1) == DOT || p.charAt(j - 1) == s.charAt(i)) {
+                    f[i][j] = f[i][j] || f[i - 1][j];
+                }
+            }
+        }
+
+        return f[n][m];
     }
+
+    private static final char ASTERISK = '*';
+    private static final char DOT = '.';
 }

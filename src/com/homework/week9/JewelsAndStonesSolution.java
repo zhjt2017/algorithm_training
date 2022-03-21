@@ -1,5 +1,7 @@
 package com.homework.week9;
 
+import java.util.HashSet;
+
 /**
  * 算法实现：字符串处理 - 基础问题 - 宝石与石头
  * - https://leetcode-cn.com/problems/jewels-and-stones/ (771题)
@@ -27,17 +29,62 @@ public class JewelsAndStonesSolution {
         String jewels = "aA";
         String stones = "aAAbbbb";
         System.out.println("Input jewels : " + jewels + ", stones : " + stones);
-        System.out.println("Output number of jewels in stones : " + solution.numJewelsInStones(jewels, stones));
+        System.out.println("Output number of jewels in stones (set) : " + solution.numJewelsInStones(jewels, stones));
+        System.out.println("Output number of jewels in stones (boolean[]) : " + solution.numJewelsInStonesArray(jewels, stones));
         System.out.println();
 
         jewels = "z";
         stones = "ZZ";
         System.out.println("Input jewels : " + jewels + ", stones : " + stones);
-        System.out.println("Output number of jewels in stones : " + solution.numJewelsInStones(jewels, stones));
+        System.out.println("Output number of jewels in stones (set) : " + solution.numJewelsInStones(jewels, stones));
+        System.out.println("Output number of jewels in stones (boolean[]) : " + solution.numJewelsInStonesArray(jewels, stones));
         System.out.println();
     }
 
-    int numJewelsInStones(String jewels, String stones) {
-        return 0;
+    /**
+     * 本题求的是总共拥有多少颗宝石
+     * 还可以求拥有多少类型的宝石
+     *
+     * @param jewels
+     * @param stones
+     * @return
+     */
+    int numJewelsInStones(final String jewels, final String stones) {
+        final HashSet<Character> validSet = new HashSet<>();
+        final int k = jewels.length();
+        for (int i = 0; i < k; i++) {
+            validSet.add(jewels.charAt(i));
+        }
+        final int n = stones.length();
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (validSet.contains(stones.charAt(i))) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 根据题意，由于jewels 和 stones 仅由英文字母组成(量有限且浪费较少)，则可以在数据结构不使用HashSet，而是用boolean[]
+     *
+     * @param jewels
+     * @param stones
+     * @return
+     */
+    int numJewelsInStonesArray(final String jewels, final String stones) {
+        final boolean[] valid = new boolean['z' + 1];
+        final int k = jewels.length();
+        for (int i = 0; i < k; i++) {
+            valid[jewels.charAt(i)] = true;
+        }
+        final int n = stones.length();
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (valid[stones.charAt(i)]) {
+                ans++;
+            }
+        }
+        return ans;
     }
 }

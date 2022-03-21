@@ -1,5 +1,8 @@
 package com.homework.week9;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * 算法实现：字符串处理 - 同构 / 异位词系列问题 - 同构字符串
  * - https://leetcode-cn.com/problems/isomorphic-strings/ (205题)
@@ -31,23 +34,104 @@ public class IsomorphicStringsSolution {
         String s = "egg";
         String t = "add";
         System.out.println("Input s : " + s + ", t : " + t);
-        System.out.println("Output is isomorphic : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (common-startIndex) : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (Character hash) : " + solution.isIsomorphicCharacter(s, t));
         System.out.println();
 
         s = "foo";
         t = "bar";
         System.out.println("Input s : " + s + ", t : " + t);
-        System.out.println("Output is isomorphic : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (common-startIndex) : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (Character hash) : " + solution.isIsomorphicCharacter(s, t));
         System.out.println();
 
         s = "paper";
         t = "title";
         System.out.println("Input s : " + s + ", t : " + t);
-        System.out.println("Output is isomorphic : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (common-startIndex) : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (Character hash) : " + solution.isIsomorphicCharacter(s, t));
+        System.out.println();
+
+        s = "badc";
+        t = "baba";
+        System.out.println("Input s : " + s + ", t : " + t);
+        System.out.println("Output is isomorphic (common-startIndex) : " + solution.isIsomorphic(s, t));
+        System.out.println("Output is isomorphic (Character hash) : " + solution.isIsomorphicCharacter(s, t));
         System.out.println();
     }
 
+    /**
+     * 我的思路：在s与t长度相等的基础上，根据同构的性质，比较遍历每个位置上的值映射的start index是否一致
+     * (使用startIndex的思想更通用些(通过startIndex内聚了性质))
+     * - 时间复杂度 O(n)
+     * - 空间复杂度 O(n)
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     boolean isIsomorphic(final String s, final String t) {
-        return false;
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        final int n = s.length();
+        final HashMap<Character, Integer> sIndexHash = new HashMap<>(n);
+        final HashMap<Character, Integer> tIndexHash = new HashMap<>(n);
+        Character c;
+        for (int i = 0; i < n; i++) {
+            c = s.charAt(i);
+            Integer start1 = sIndexHash.get(c);
+            if (start1 == null) {
+                start1 = i;
+                sIndexHash.put(c, i);
+            }
+
+            c = t.charAt(i);
+            Integer start2 = tIndexHash.get(c);
+            if (start2 == null) {
+                start2 = i;
+                tIndexHash.put(c, i);
+            }
+
+            if (start1 != start2) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 次解：根据题意中的字符映射
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    boolean isIsomorphicCharacter(final String s, final String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        final int n = s.length();
+        final HashMap<Character, Character> hash = new HashMap<>(n);
+        final HashSet<Character> tSet = new HashSet<>();
+        Character to, tValue;
+        for (int i = 0; i < n; i++) {
+            to = hash.get(s.charAt(i));
+            tValue = t.charAt(i);
+            if (to == null) {
+                if (tSet.contains(tValue)) {
+                    return false;
+                }
+                tSet.add(tValue);
+                hash.put(s.charAt(i), tValue);
+                continue;
+            }
+            if (!to.equals(tValue)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
