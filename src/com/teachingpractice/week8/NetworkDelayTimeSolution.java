@@ -59,7 +59,45 @@ public class NetworkDelayTimeSolution {
 
     }
 
+    /**
+     * 属于经典的单源最短路径，使用Bellman-Ford最短路径算法
+     * - 时间复杂度 O(nm)
+     * - 空间复杂度 O(n)
+     * - 使用[]times对n个网络节点进行一轮一轮(r)的更新，最多n-1轮，最后再校验一轮，发现不用再更新时，完成
+     *
+     * @param times
+     * @param n
+     * @param k
+     * @return
+     */
     int networkDelayTime(final int[][] times, final int n, final int k) {
-        return 0;
+        final int[] dist = new int[n + 1];
+        Arrays.fill(dist, BIG);
+        dist[k] = 0;
+        for (int r = 1; r < n; r++) {
+            boolean immutable = true;
+            for (final int[] t : times) {
+                int u = dist[t[0]] + t[2];
+                if (u < dist[t[1]]) {
+                    dist[t[1]] = u;
+                    immutable = false;
+                }
+            }
+            if (immutable) {
+                break;
+            }
+        }
+        int ans = -1;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == BIG) {
+                return -1;
+            }
+            if (dist[i] > ans) {
+                ans = dist[i];
+            }
+        }
+        return ans;
     }
+
+    private static final int BIG = (int) 1e9;
 }

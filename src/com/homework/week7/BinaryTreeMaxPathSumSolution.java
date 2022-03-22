@@ -1,7 +1,7 @@
 package com.homework.week7;
 
 /**
- * 算法实现：动态规划 - 二叉树中的最大路径和
+ * 算法实现：树形动态规划 - 二叉树中的最大路径和 (并考虑具体方案的打印)
  * - https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/ (124题)
  *
  * - 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。

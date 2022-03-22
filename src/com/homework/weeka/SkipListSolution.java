@@ -68,20 +68,137 @@ public class SkipListSolution {
 
     static class SkipList {
 
-        public SkipList() {
+        private static final float SKIPLIST_P = 0.25f;
+        /**
+         * 足够满足20000的范围
+         */
+        private static final int MAX_LEVEL = 1 << 4;
 
+        static class Node {
+            /**
+             * 节点的值
+             */
+            private int val;
+            /**
+             * 节点在不同层的下一个节点
+             */
+            private Node[] next;
+
+            Node(final int val, final int layers) {
+                this.val = val;
+                this.next = new Node[layers];
+            }
+
+            @Override
+            public String toString() {
+                return String.format("{\"val\" : %d, \"next layers\" : %d}", this.val, this.next.length);
+            }
         }
 
+        private int levelCount;
+        private Node head;
+
+        public SkipList() {
+            levelCount = 1;
+            head = new Node(-1, MAX_LEVEL);
+        }
+
+        /**
+         * O(logn)实现查询
+         *
+         * @param target
+         * @return
+         */
         public boolean search(final int target) {
+            Node node = head;
+            for (int i = levelCount - 1; i >= 0; i--) {
+                node = findClosest(node, i, target);
+                if (node.next[i] != null && node.next[i].val == target) {
+                    return true;
+                }
+            }
             return false;
         }
 
+        /**
+         * 这是最关键的方法：
+         * - 先随机出来一个层数，这就是要插入的新节点的层数
+         * - 根据跳表实际的总层数从上往下分析，要插入一个节点newNode时，先找到节点在该层的位置：
+         * - 因为是链表，所以需要O(logn)找到一个节点node，满足newNode的值刚好不大于node的下一个节点值，当然，如果node的下个节点为空，那么也是满足的。
+         * - 确定插入节点newNode在该层的位置后，先判断下newNode的随机层数是否小于当前跳表的总层数，如果是，则用链表的插入方法将newNode插入即可。
+         * - 如此循环，直到最底层插入newNode完毕。
+         * - 循环完毕后，还需要判断下newNode随机出来的层数是否比跳表的实际层数还要大，如果是，直接将超过实际层数的跳表的头节点指向newNode即可，该跳表的实际层数也就变为newNode的随机层数了。
+         *
+         * @param num
+         */
         public void add(final int num) {
-
+            int level = dial();
+            Node updateNode = head;
+            Node newNode = new Node(num, level);
+            // 计算出当前num 索引的实际层数，从该层开始添加索引
+            for (int i = levelCount - 1; i >= 0; i--) {
+                // 找到本层最近离num最近的list
+                updateNode = findClosest(updateNode, i, num);
+                if (i >= level) {
+                    continue;
+                }
+                if (updateNode.next[i] == null) {
+                    updateNode.next[i] = newNode;
+                    continue;
+                }
+                Node temp = updateNode.next[i];
+                updateNode.next[i] = newNode;
+                newNode.next[i] = temp;
+            }
+            if (level > levelCount) {
+                for (int i = levelCount; i < level; i++) {
+                    head.next[i] = newNode;
+                }
+                levelCount = level;
+            }
         }
 
         public boolean erase(final int num) {
-            return false;
+            boolean flag = false;
+            Node searchNode = head;
+            for (int i = levelCount - 1; i >= 0; i--) {
+                searchNode = findClosest(searchNode, i, num);
+                if (searchNode.next[i] != null && searchNode.next[i].val == num) {
+                    searchNode.next[i] = searchNode.next[i].next[i];
+                    flag = true;
+                    continue;
+                }
+            }
+            return flag;
+        }
+
+        /**
+         * 扔色子，获得random level
+         *
+         * @return
+         */
+        private int dial() {
+            int level = 1;
+            while (Math.random() < SKIPLIST_P && level < MAX_LEVEL) {
+                level++;
+            }
+            return level;
+        }
+
+        /**
+         * 找到level层value大于等于node的节点
+         *
+         * @param node
+         * @param levelIndex
+         * @param value
+         * @return
+         */
+        private Node findClosest(final Node node, final int levelIndex, final int value) {
+            Node p = node;
+            while (p.next[levelIndex] != null && value > p.next[levelIndex].val) {
+                p = p.next[levelIndex];
+            }
+            return p;
         }
     }
 }

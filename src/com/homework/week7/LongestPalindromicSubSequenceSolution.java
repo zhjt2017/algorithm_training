@@ -1,7 +1,7 @@
 package com.homework.week7;
 
 /**
- * 算法实现：动态规划 - 最长回文子序列
+ * 算法实现：区间动态规划 - 最长回文子序列
  * - https://leetcode-cn.com/problems/longest-palindromic-subsequence/ (516题)
  * <p>
  * - 给你一个字符串 s ，找出其中最长的回文子序列，并返回该序列的长度。

@@ -100,7 +100,7 @@ public class ShortestPathInBinaryMatrixSolution {
                 for (int k = 0; k < DX.length; k++) {
                     int nx = value[0] + DX[k];
                     int ny = value[1] + DY[k];
-                    if (nx < 0 || ny < 0 || nx >= n || ny >= n || visited[nx][ny] || grid[nx][ny] != 0) {
+                    if (invalidPosition(nx, ny, grid) || visited[nx][ny]) {
                         continue;
                     }
                     if (targetVisited[nx][ny]) {
@@ -120,7 +120,7 @@ public class ShortestPathInBinaryMatrixSolution {
                 for (int k = 0; k < DX.length; k++) {
                     int nx = value[0] + DX[k];
                     int ny = value[1] + DY[k];
-                    if (nx < 0 || ny < 0 || nx >= n || ny >= n || targetVisited[nx][ny] || grid[nx][ny] != 0) {
+                    if (invalidPosition(nx, ny, grid) || targetVisited[nx][ny]) {
                         continue;
                     }
                     if (visited[nx][ny]) {
@@ -132,6 +132,10 @@ public class ShortestPathInBinaryMatrixSolution {
             }
         }
         return -1;
+    }
+
+    private boolean invalidPosition(final int nx, final int ny, final int[][] grid) {
+        return nx < 0 || ny < 0 || nx >= n || ny >= n || grid[nx][ny] != 0;
     }
 
     private int n;
