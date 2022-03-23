@@ -29,20 +29,56 @@ import java.util.Arrays;
  * 给定的图是连通的
  *
  * @author bruce.zhu@GeekTrainingCamp
- * @since 2022-01-20 06:06:01
+ * @since 2022-03-23 07:23:58
  */
 public class RedundantConnectionSolution {
     public static void main(String[] args) {
+        final RedundantConnectionSolution solution = new RedundantConnectionSolution();
         int[][] edges = new int[][]{{1, 2}, {1, 3}, {2, 3}};
         System.out.println("Input edges : " + Arrays.deepToString(edges));
-        System.out.println("Output redundant (last) edge : " + Arrays.toString(findRedundantConnection(edges)));
+        System.out.println("Output redundant (last) edge : " + Arrays.toString(solution.findRedundantConnection(edges)));
 
         edges = new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 4}, {1, 5}};
         System.out.println("Input edges : " + Arrays.deepToString(edges));
-        System.out.println("Output redundant (last) edge : " + Arrays.toString(findRedundantConnection(edges)));
+        System.out.println("Output redundant (last) edge : " + Arrays.toString(solution.findRedundantConnection(edges)));
     }
 
-    private static int[] findRedundantConnection(final int[][] edges) {
+    /**
+     * Disjoint Sets解决连通性问题
+     * - 树是无向无环图(n个节点，n-1条边)，多了一条附加的边之后(而没有新的节点)，就会出现环
+     * 时间复杂度 O(nlogn)
+     * 空间复杂度 O(n)
+     *
+     * @param edges
+     * @return
+     */
+    private int[] findRedundantConnection(final int[][] edges) {
+        final int n = edges.length;
+        makeSets(n);
+        for (final int[] edge : edges) {
+            int f1 = find(edge[0]);
+            int f2 = find(edge[1]);
+            if (f1 == f2) {
+                return edge;
+            }
+            fa[f1] = f2;
+        }
         return new int[]{};
+    }
+
+    private int[] fa;
+
+    private void makeSets(final int n) {
+        fa = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            fa[i] = i;
+        }
+    }
+
+    private int find(final int x) {
+        if (fa[x] == x) {
+            return x;
+        }
+        return find(fa[x]);
     }
 }
