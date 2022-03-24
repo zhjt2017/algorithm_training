@@ -30,12 +30,14 @@ public class JumpGameSolution {
 
         int[] nums = new int[]{2, 3, 1, 1, 4};
         System.out.println("Input nums : " + Arrays.toString(nums));
-        System.out.println("Output can jump : " + solution.canJump(nums));
+        System.out.println("Output can jump (greedy) : " + solution.canJump(nums));
+        System.out.println("Output can jump (dp) : " + solution.canJumpByDp(nums));
         System.out.println();
 
         nums = new int[]{3, 2, 1, 0, 4};
         System.out.println("Input nums : " + Arrays.toString(nums));
-        System.out.println("Output can jump : " + solution.canJump(nums));
+        System.out.println("Output can jump (greedy) : " + solution.canJump(nums));
+        System.out.println("Output can jump (dp) : " + solution.canJumpByDp(nums));
     }
 
     /**
@@ -61,7 +63,25 @@ public class JumpGameSolution {
         return false;
     }
 
+    /**
+     * 动态规划
+     * - 从目标位置来看，nums[i]>=j 成立时才可以到达后面第 j 个目标，故如果有多个点(比如A、B两点，B在后)可以到达目标位置，则必然A也能到达B
+     * - 故动态规划可以从目标位置向前找到最后一个可以到达目标的点，接下来如何再往前的点如何到达该点就是子问题了
+     * - 初值：start = 最后一个下标
+     * - 目标：是否从index=0位置出发
+     * - 时间复杂度 O(N)
+     * - 空间复杂度 O(1)
+     *
+     * @param nums
+     * @return
+     */
     boolean canJumpByDp(final int[] nums) {
-        return false;
+        int start = nums.length - 1;
+        for (int i = start - 1; i >= 0; i--) {
+            if (i + nums[i] >= start) {
+                start = i;
+            }
+        }
+        return start == 0;
     }
 }
