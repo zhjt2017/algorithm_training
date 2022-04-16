@@ -1,8 +1,8 @@
 package com.dailytraining.month202204;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,35 +39,45 @@ public class MiniParserSolution {
 
     }
 
+    private static final char NEST_LEFT = '[';
+    private static final char NEST_RIGHT = ']';
+
     NestedInteger deserialize(final String s) {
-        if (s.charAt(0) != '[') {
+        if (s.charAt(0) != NEST_LEFT) {
             return new NestedInteger(Integer.parseInt(s));
         }
-        Deque<NestedInteger> stack = new ArrayDeque<>();
+        final int n = s.length();
+        final Deque<NestedInteger> stack = new LinkedList<>();
         int num = 0;
         boolean negative = false;
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < n; i++) {
             char c = s.charAt(i);
             if (c == '-') {
                 negative = true;
-            } else if (Character.isDigit(c)) {
-                num = num * 10 + c - '0';
-            } else if (c == '[') {
-                stack.push(new NestedInteger());
-            } else if (c == ',' || c == ']') {
-                if (Character.isDigit(s.charAt(i - 1))) {
-                    if (negative) {
-                        num *= -1;
-                    }
-                    stack.peek().add(new NestedInteger(num));
-                }
-                num = 0;
-                negative = false;
-                if (c == ']' && stack.size() > 1) {
-                    NestedInteger ni = stack.pop();
-                    stack.peek().add(ni);
-                }
+                continue;
             }
+            if (Character.isDigit(c)) {
+                num = num * 10 + c - '0';
+                continue;
+            }
+            if (c == NEST_LEFT) {
+                stack.push(new NestedInteger());
+                continue;
+            }
+
+            if (Character.isDigit(s.charAt(i - 1))) {
+                stack.peek().add(new NestedInteger(negative ? -num : num));
+            }
+            num = 0;
+            negative = false;
+            if (c == ',') {
+                continue;
+            }
+            if (i == n - 1) {
+                return stack.pop();
+            }
+            NestedInteger curr = stack.pop();
+            stack.peek().add(curr);
         }
         return stack.pop();
     }
